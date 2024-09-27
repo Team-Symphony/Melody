@@ -16,6 +16,6 @@ public class Melody implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-
+		//TODO: initialise midnight config (also add it)
 	}
 }
