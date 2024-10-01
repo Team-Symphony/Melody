@@ -4,14 +4,29 @@
 	"version": "${version}",
 	"name": "Melody",
 	"description": "This is an example description! Tell everyone what your mod is about!",
-	"authors": [
-		"Me!"
+	"authors": [ "Team Symphony" ],
+	"contributors": [
+		"Flatkat",
+		"Nettakrim"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/Team-Symphony/Melody",
+		"sources": "https://github.com/Team-Symphony/Melody",
+		"issues": "https://github.com/Team-Symphony/Melody/issues"
 	},
-	"license": "CC0-1.0",
+
+	"custom": {
+		"modmenu": {
+			"links": {
+				"modmenu.discord": "https://discord.gg/hTTPbbnRGG",
+				"modmenu.github_releases": "https://github.com/Team-Symphony/Melody/releases",
+				"symphony.feature_tracker": "https://docs.google.com/spreadsheets/d/196sVDUJELCznO_RF7vib9-2uMkRaHFwVG9ogDHR1CBU/edit"
+			}
+		}
+	},
+
+
+	"license": "MIT",
 	"icon": "assets/melody/icon.png",
 	"environment": "*",
 	"entrypoints": {
