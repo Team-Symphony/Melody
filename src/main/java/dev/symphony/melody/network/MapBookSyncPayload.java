@@ -11,7 +11,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 public class MapBookSyncPayload implements CustomPayload {
-    public static Id<MapBookSyncPayload> ID = new Id<>(Identifier.of("melody", "map_book_sync"));
+    public static final Id<MapBookSyncPayload> ID = new Id<>(Identifier.of("melody", "map_book_sync"));
 
     public int bookID;
     public int[] mapIDs;

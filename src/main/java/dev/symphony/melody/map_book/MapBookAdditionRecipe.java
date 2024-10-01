@@ -36,7 +36,7 @@ public final class MapBookAdditionRecipe extends SpecialCraftingRecipe {
         }
     }
 
-    private final AdditionResult getResult(CraftingRecipeInput craftingRecipeInput, World world) {
+    private AdditionResult getResult(CraftingRecipeInput craftingRecipeInput, World world) {
         ItemStack mapBook = null;
         ArrayList<Integer> maps = new ArrayList<>();
 
@@ -71,7 +71,7 @@ public final class MapBookAdditionRecipe extends SpecialCraftingRecipe {
         }
         if (world != null) {
             for (MapStateData mapStateData : ItemRegistry.MapBook.getMapStates(mapBook, world)) {
-                if (maps.contains(mapStateData.getId().id())) {
+                if (maps.contains(mapStateData.id().id())) {
                     return null;
                 }
             }

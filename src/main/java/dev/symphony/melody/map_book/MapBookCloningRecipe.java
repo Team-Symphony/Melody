@@ -15,9 +15,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
-import java.util.Iterator;
-
 public final class MapBookCloningRecipe extends SpecialCraftingRecipe {
     public MapBookCloningRecipe(@Nullable CraftingRecipeCategory craftingRecipeCategory) {
         super(craftingRecipeCategory);
@@ -30,31 +27,24 @@ public final class MapBookCloningRecipe extends SpecialCraftingRecipe {
     @NotNull
     public ItemStack craft(CraftingRecipeInput craftingRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup) {
         ItemStack itemStack = this.getResult(craftingRecipeInput);
-        ItemStack var4;
         if (itemStack != null && !itemStack.isEmpty()) {
-            var4 = itemStack.copy();
-            return var4;
+            return itemStack.copy();
         } else {
-            var4 = ItemStack.EMPTY;
-            return var4;
+            return ItemStack.EMPTY;
         }
     }
 
-    private final ItemStack getResult(CraftingRecipeInput craftingRecipeInput) {
+    private ItemStack getResult(CraftingRecipeInput craftingRecipeInput) {
         ItemStack filledMap = null;
         boolean emptyMap = false;
-        Iterator var4 = craftingRecipeInput.getStacks().iterator();
 
-        while(var4.hasNext()) {
-            ItemStack itemStack = (ItemStack)var4.next();
+        for (ItemStack itemStack : craftingRecipeInput.getStacks()) {
             if (!itemStack.isEmpty()) {
                 if (!itemStack.isOf(ItemRegistry.MapBook)) {
                     return null;
                 }
 
-                Item var7 = itemStack.getItem();
-                MapBookItem var10000 = (MapBookItem)var7;
-                boolean isEmpty = var10000.getMapBookId(itemStack) == null;
+                boolean isEmpty = ((MapBookItem)itemStack.getItem()).getMapBookId(itemStack) == null;
                 if (isEmpty) {
                     if (emptyMap) {
                         return null;
@@ -78,13 +68,12 @@ public final class MapBookCloningRecipe extends SpecialCraftingRecipe {
         }
     }
 
+    //TODO: remainder needs to be updated to new system
     @NotNull
-    public DefaultedList getRemainder(@Nullable RecipeInputInventory inventory) {
-        DefaultedList var3 = DefaultedList.ofSize(inventory.size(), ItemStack.EMPTY);
-        DefaultedList result = var3;
-        int i = 0;
+    public DefaultedList<ItemStack> getRemainder(@Nullable RecipeInputInventory inventory) {
+        DefaultedList<ItemStack> result = DefaultedList.ofSize(inventory.size(), ItemStack.EMPTY);
 
-        for(int var4 = ((Collection)result).size(); i < var4; ++i) {
+        for(int i = 0; i < result.size(); i++) {
             ItemStack stack = inventory.getStack(i);
             if (stack != null) {
                 Item item = stack.getItem();
@@ -92,8 +81,7 @@ public final class MapBookCloningRecipe extends SpecialCraftingRecipe {
                     if (item.getRecipeRemainder() != null) {
                         result.set(i, stack.getRecipeRemainder());
                     } else if (item instanceof MapBookItem) {
-                        Item var7 = stack.getItem();
-                        if (((MapBookItem)var7).getMapBookId(stack) != null) {
+                        if (((MapBookItem)stack.getItem()).getMapBookId(stack) != null) {
                             result.set(i, stack.copyWithCount(1));
                         }
                     }

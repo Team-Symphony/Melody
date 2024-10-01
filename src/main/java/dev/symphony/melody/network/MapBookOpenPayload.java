@@ -8,7 +8,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 public class MapBookOpenPayload implements CustomPayload {
-    public static Id<MapBookOpenPayload> ID = new Id<>(Identifier.of("melody", "map_book_open"));
+    public static final Id<MapBookOpenPayload> ID = new Id<>(Identifier.of("melody", "map_book_open"));
 
     public ItemStack itemStack;
 

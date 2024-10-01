@@ -16,21 +16,17 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.PersistentStateManager;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -47,45 +43,36 @@ public final class MapBookItem extends NetworkSyncedItem {
     @NotNull
     public ActionResult useOnBlock(@NotNull ItemUsageContext context) {
         BlockState blockState = context.getWorld().getBlockState(context.getBlockPos());
-        ActionResult var3;
+
         if (blockState.isIn(BlockTags.BANNERS)) {
             if (!context.getWorld().isClient) {
-                ItemStack var5 = context.getStack();
-                ItemStack var10001 = var5;
-                World var7 = context.getWorld();
-                World var10002 = var7;
-                Vec3d var8 = context.getBlockPos().toCenterPos();
-                MapStateData var4 = this.getNearestMap(var10001, var10002, var8);
-                MapState mapState = var4 != null ? var4.getMapState() : null;
-                if (mapState != null && !mapState.addBanner((WorldAccess)context.getWorld(), context.getBlockPos())) {
+                MapStateData mapStateData = this.getNearestMap(context.getStack(), context.getWorld(), context.getBlockPos().toCenterPos());
+                MapState mapState = mapStateData != null ? mapStateData.mapState() : null;
+                if (mapState != null && !mapState.addBanner(context.getWorld(), context.getBlockPos())) {
                     return ActionResult.FAIL;
                 }
             }
 
-            var3 = ActionResult.success(context.getWorld().isClient);
-            return var3;
+            return ActionResult.success(context.getWorld().isClient);
         } else {
-            var3 = super.useOnBlock(context);
-            return var3;
+            return super.useOnBlock(context);
         }
     }
 
     @NotNull
-    public TypedActionResult use(@Nullable World world, @Nullable PlayerEntity user, @Nullable Hand hand) {
+    public TypedActionResult<ItemStack> use(@Nullable World world, @Nullable PlayerEntity user, @Nullable Hand hand) {
         if (world != null && !world.isClient()) {
             ServerPlayerEntity player = (ServerPlayerEntity)user;
             ItemStack item = user.getStackInHand(hand);
             ItemStack otherHand = hand == Hand.MAIN_HAND ? player.getOffHandStack() : player.getMainHandStack();
             boolean openMap = true;
             if (otherHand.isOf(Items.PAPER)) {
-                ServerWorld var10002 = (ServerWorld)world;
-                Vec3d var8 = player.getPos();
-                if (this.addNewMapAtPos(item, var10002, var8, 0)) {
+                if (this.addNewMapAtPos(item, (ServerWorld)world, player.getPos(), 0)) {
                     if (!player.getAbilities().creativeMode) {
                         otherHand.decrement(1);
                     }
 
-                    player.getWorld().playSoundFromEntity((PlayerEntity)null, (Entity)player, SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, player.getSoundCategory(), 1.0F, 1.0F);
+                    player.getWorld().playSoundFromEntity(null, player, SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, player.getSoundCategory(), 1.0F, 1.0F);
                     openMap = false;
                 }
             }
@@ -96,14 +83,13 @@ public final class MapBookItem extends NetworkSyncedItem {
             }
         }
 
-        TypedActionResult var9 = super.use(world, user, hand);
-        return var9;
+        return super.use(world, user, hand);
     }
 
-    public final void sendMapUpdates(@NotNull ServerPlayerEntity player, @NotNull ItemStack item) {
+    public void sendMapUpdates(@NotNull ServerPlayerEntity player, @NotNull ItemStack item) {
         for (MapStateData mapStateData : this.getMapStates(item, player.getWorld())) {
-            mapStateData.getMapState().getPlayerSyncData((PlayerEntity) player);
-            Packet packet = mapStateData.getMapState().getPlayerMarkerPacket(mapStateData.getId(), (PlayerEntity) player);
+            mapStateData.mapState().getPlayerSyncData(player);
+            Packet<?> packet = mapStateData.mapState().getPlayerMarkerPacket(mapStateData.id(), player);
             if (packet != null) {
                 player.networkHandler.sendPacket(packet);
             }
@@ -116,17 +102,12 @@ public final class MapBookItem extends NetworkSyncedItem {
             if (stack != null && entity instanceof PlayerEntity) {
                 if (selected || ((PlayerEntity)entity).getOffHandStack().equals(stack)) {
                     this.applyAdditions(stack, (ServerWorld)world);
-                    Iterator var6 = this.getMapStates(stack, ((PlayerEntity)entity).getWorld()).iterator();
 
-                    while(var6.hasNext()) {
-                        MapStateData mapStateData = (MapStateData)var6.next();
-                        mapStateData.getMapState().update((PlayerEntity)entity, stack);
-                        if (!mapStateData.getMapState().locked) {
-                            MapState var10001 = mapStateData.getMapState();
-                            Vec3d var8 = ((PlayerEntity)entity).getPos();
-                            if (this.getDistanceToEdgeOfMap(var10001, var8) < 128.0) {
-                                Item var9 = Items.FILLED_MAP;
-                                ((FilledMapItem)var9).updateColors(world, entity, mapStateData.getMapState());
+                    for (MapStateData mapStateData : this.getMapStates(stack, entity.getWorld())) {
+                        mapStateData.mapState().update((PlayerEntity) entity, stack);
+                        if (!mapStateData.mapState().locked) {
+                            if (this.getDistanceToEdgeOfMap(mapStateData.mapState(), entity.getPos()) < 128.0) {
+                                ((FilledMapItem)Items.FILLED_MAP).updateColors(world, entity, mapStateData.mapState());
                             }
                         }
                     }
@@ -139,15 +120,14 @@ public final class MapBookItem extends NetworkSyncedItem {
     }
 
     @NotNull
-    public final ArrayList<MapStateData> getMapStates(@NotNull ItemStack stack, @Nullable World world) {
+    public ArrayList<MapStateData> getMapStates(@NotNull ItemStack stack, @Nullable World world) {
         ArrayList<MapStateData> list = new ArrayList<>();
         if (world != null) {
             MapBookState mapBookState;
             if (world.isClient) {
                 mapBookState = MapBookStateManager.INSTANCE.getClientMapBookState(this.getMapBookId(stack));
             } else {
-                MapBookStateManager var8 = MapBookStateManager.INSTANCE;
-                mapBookState = var8.getMapBookState(world.getServer(), this.getMapBookId(stack));
+                mapBookState = MapBookStateManager.INSTANCE.getMapBookState(world.getServer(), this.getMapBookId(stack));
             }
 
             if (mapBookState != null) {
@@ -164,11 +144,12 @@ public final class MapBookItem extends NetworkSyncedItem {
     }
 
     @Nullable
-    public final MapStateData getNearestMap(@NotNull ItemStack stack, @NotNull World world, @NotNull Vec3d pos) {
+    public MapStateData getNearestMap(@NotNull ItemStack stack, @NotNull World world, @NotNull Vec3d pos) {
         double nearestDistance = Double.MAX_VALUE;
         byte nearestScale = 127;
         MapStateData nearestMap = null;
-        Iterator<MapStateData> var8 = this.getMapStates(stack, world).iterator();
+
+        Iterator<MapStateData> mapStates = this.getMapStates(stack, world).iterator();
 
         while(true) {
             MapStateData mapStateData;
@@ -176,72 +157,56 @@ public final class MapBookItem extends NetworkSyncedItem {
             boolean roughlyEqual;
             do {
                 do {
-                    if (!var8.hasNext()) {
+                    if (!mapStates.hasNext()) {
                         return nearestMap;
                     }
 
-                    mapStateData = (MapStateData)var8.next();
-                    distance = this.getDistanceToEdgeOfMap(mapStateData.getMapState(), pos);
+                    mapStateData = mapStates.next();
+                    distance = this.getDistanceToEdgeOfMap(mapStateData.mapState(), pos);
                     if (distance < 0.0) {
                         distance = -1.0;
                     }
 
                     roughlyEqual = Math.abs(nearestDistance - distance) < 1.0;
                 } while(!(distance < nearestDistance) && !roughlyEqual);
-            } while(roughlyEqual && (!(distance < 0.0) || mapStateData.getMapState().scale >= nearestScale) && (!(distance > 0.0) || mapStateData.getMapState().scale <= nearestScale));
+            } while(roughlyEqual && (!(distance < 0.0) || mapStateData.mapState().scale >= nearestScale) && (!(distance > 0.0) || mapStateData.mapState().scale <= nearestScale));
 
             nearestDistance = distance;
-            nearestScale = mapStateData.getMapState().scale;
+            nearestScale = mapStateData.mapState().scale;
             nearestMap = mapStateData;
         }
     }
 
-    public final double getDistanceToEdgeOfMap(@NotNull MapState mapState, @NotNull Vec3d pos) {
+    public double getDistanceToEdgeOfMap(@NotNull MapState mapState, @NotNull Vec3d pos) {
         return Math.max(Math.abs(pos.x - (double)mapState.centerX), Math.abs(pos.z - (double)mapState.centerZ)) - (double)(64 * (1 << mapState.scale));
     }
 
     @Nullable
-    public final Integer getMapBookId(@NotNull ItemStack stack) {
+    public Integer getMapBookId(@NotNull ItemStack stack) {
         if (stack.contains(DataComponentTypes.MAP_ID)) {
             return stack.get(DataComponentTypes.MAP_ID).id();
         }
         return null;
     }
 
-    private final int allocateMapBookId(MinecraftServer server) {
-        MapBookIdCountsState var10000;
-        MapBookState mapBookState;
-        label12: {
-            mapBookState = new MapBookState();
-            ServerWorld var4 = server.getOverworld();
-            if (var4 != null) {
-                PersistentStateManager var5 = var4.getPersistentStateManager();
-                if (var5 != null) {
-                    var10000 = var5.getOrCreate(MapBookIdCountsState.getPersistentStateType(), MapBookIdCountsState.IDCOUNTS_KEY);
-                    break label12;
-                }
-            }
-
-            var10000 = null;
-        }
-
-        MapBookIdCountsState counts = var10000;
+    private int allocateMapBookId(MinecraftServer server) {
+        MapBookIdCountsState counts = server.getOverworld().getPersistentStateManager().getOrCreate(MapBookIdCountsState.getPersistentStateType(), MapBookIdCountsState.IDCOUNTS_KEY);
         int i = counts.getNextMapBookId();
-        MapBookStateManager.INSTANCE.putMapBookState(server, i, mapBookState);
+        MapBookStateManager.INSTANCE.putMapBookState(server, i, new MapBookState());
         return i;
     }
 
-    private final void setMapBookId(ItemStack stack, int id) {
+    private void setMapBookId(ItemStack stack, int id) {
         stack.set(DataComponentTypes.MAP_ID, new MapIdComponent(id));
     }
 
-    private final int createMapBookState(ItemStack stack, MinecraftServer server) {
+    private int createMapBookState(ItemStack stack, MinecraftServer server) {
         int i = this.allocateMapBookId(server);
         this.setMapBookId(stack, i);
         return i;
     }
 
-    private final MapBookState getOrCreateMapBookState(ItemStack stack, MinecraftServer server) {
+    private MapBookState getOrCreateMapBookState(ItemStack stack, MinecraftServer server) {
         MapBookState state = MapBookStateManager.INSTANCE.getMapBookState(server, this.getMapBookId(stack));
         if (state != null) {
             return state;
@@ -251,14 +216,13 @@ public final class MapBookItem extends NetworkSyncedItem {
         }
     }
 
-    private final boolean addNewMapAtPos(ItemStack item, ServerWorld world, Vec3d pos, int scale) {
-        MinecraftServer var6 = world.getServer();
-        MapBookState state = this.getOrCreateMapBookState(item, var6);
-        MapStateData nearestState = this.getNearestMap(item, (World)world, pos);
-        if (nearestState != null && nearestState.getMapState().scale <= scale && !(this.getDistanceToEdgeOfMap(nearestState.getMapState(), pos) > 0.0)) {
+    private boolean addNewMapAtPos(ItemStack item, ServerWorld world, Vec3d pos, int scale) {
+        MapBookState state = this.getOrCreateMapBookState(item, world.getServer());
+        MapStateData nearestState = this.getNearestMap(item, world, pos);
+        if (nearestState != null && nearestState.mapState().scale <= scale && !(this.getDistanceToEdgeOfMap(nearestState.mapState(), pos) > 0.0)) {
             return false;
         } else {
-            ItemStack newMap = FilledMapItem.createMap((World)world, (int)Math.floor(pos.x), (int)Math.floor(pos.z), (byte)scale, true, false);
+            ItemStack newMap = FilledMapItem.createMap(world, (int)Math.floor(pos.x), (int)Math.floor(pos.z), (byte)scale, true, false);
             state.addMapID(newMap.get(DataComponentTypes.MAP_ID).id());
             return true;
         }
@@ -267,17 +231,13 @@ public final class MapBookItem extends NetworkSyncedItem {
     @NotNull
     public Text getName(@Nullable ItemStack stack) {
         if (stack != null && this.getMapBookId(stack) == null) {
-            MutableText var3;
             if (stack.contains(ItemRegistry.MAP_BOOK_ADDITIONS)) {
-                var3 = Text.translatable("item.melody.map_book_new");
-                return (Text)var3;
+                return Text.translatable("item.melody.map_book_new");
             } else {
-                var3 = Text.translatable("item.melody.map_book_empty");
-                return (Text)var3;
+                return Text.translatable("item.melody.map_book_empty");
             }
         } else {
-            Text var2 = super.getName(stack);
-            return var2;
+            return super.getName(stack);
         }
     }
 
@@ -287,60 +247,40 @@ public final class MapBookItem extends NetworkSyncedItem {
 
             int mapsCount = stack.getOrDefault(ItemRegistry.MAP_BOOK_ADDITIONS, MapBookAdditionsComponent.DEFAULT).additions().size();
             if (id != null) {
-                MapBookState var10000;
+                MapBookState mapBookState;
                 if (world != null && !world.isClient) {
-                    MapBookStateManager var10 = MapBookStateManager.INSTANCE;
-                    MinecraftServer var10001 = world.getServer();
-                    var10000 = var10.getMapBookState(var10001, id);
+                    mapBookState = MapBookStateManager.INSTANCE.getMapBookState(world.getServer(), id);
                 } else {
-                    var10000 = MapBookStateManager.INSTANCE.getClientMapBookState(id);
+                    mapBookState = MapBookStateManager.INSTANCE.getClientMapBookState(id);
                 }
 
-                int var11;
-                label25: {
-                    MapBookState mapBookState = var10000;
-                    if (mapBookState != null) {
-                        ArrayList var8 = mapBookState.getMapIDs();
-                        if (var8 != null) {
-                            int var9 = ((Collection)var8).size();
-                            var11 = var9;
-                            break label25;
-                        }
-                    }
-
-                    var11 = 0;
+                if (mapBookState != null) {
+                    mapsCount += mapBookState.getMapIDs().size();
                 }
 
-                mapsCount += var11;
-                MutableText var13 = Text.translatable("item.melody.map_book_id").append(ScreenTexts.SPACE).append(String.valueOf(id + 1)).formatted(Formatting.GRAY);
-                tooltip.add(var13);
+                tooltip.add(Text.translatable("item.melody.map_book_id").append(ScreenTexts.SPACE).append(String.valueOf(id + 1)).formatted(Formatting.GRAY));
             }
 
             if (mapsCount > 0) {
-                MutableText var12 = Text.translatable("item.melody.map_book_maps").append(ScreenTexts.SPACE).append(String.valueOf(mapsCount)).formatted(Formatting.GRAY);
-                tooltip.add(var12);
+                tooltip.add(Text.translatable("item.melody.map_book_maps").append(ScreenTexts.SPACE).append(String.valueOf(mapsCount)).formatted(Formatting.GRAY));
             }
-
         }
     }
 
-    public final void setAdditions(@NotNull ItemStack stack, @NotNull ArrayList<Integer> additions) {
+    public void setAdditions(@NotNull ItemStack stack, @NotNull ArrayList<Integer> additions) {
         stack.set(ItemRegistry.MAP_BOOK_ADDITIONS, new MapBookAdditionsComponent(additions));
     }
 
-    private final void applyAdditions(ItemStack stack, ServerWorld world) {
-        MapBookAdditionsComponent additions = stack.getOrDefault(ItemRegistry.MAP_BOOK_ADDITIONS, null);
-        if (additions == null) return;
+    private void applyAdditions(ItemStack stack, ServerWorld world) {
+        MapBookAdditionsComponent additionsComponent = stack.getOrDefault(ItemRegistry.MAP_BOOK_ADDITIONS, null);
+        if (additionsComponent == null) return;
         stack.remove(ItemRegistry.MAP_BOOK_ADDITIONS);
 
-        if (!additions.additions().isEmpty()) {
-            MinecraftServer var6 = world.getServer();
-            MapBookState state = this.getOrCreateMapBookState(stack, var6);
-            ArrayList<Integer> var10 = additions.additions();
+        ArrayList<Integer> additions = additionsComponent.additions();
+        if (!additions.isEmpty()) {
+            MapBookState state = this.getOrCreateMapBookState(stack, world.getServer());
 
-            int var7 = 0;
-            for(int var8 = additions.additions().size(); var7 < var8; ++var7) {
-                int id = var10.get(var7);
+            for (int id : additions) {
                 state.addMapID(id);
             }
         }

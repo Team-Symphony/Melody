@@ -1,24 +1,17 @@
 package dev.symphony.melody.map_book;
 
 import dev.symphony.melody.ItemRegistry;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.map.MapState;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Iterator;
 
 public final class MapBookScreen extends Screen {
     @NotNull
@@ -62,7 +55,7 @@ public final class MapBookScreen extends Screen {
         this.setScale(this.targetScale, (double)this.width / 2.0, (double)this.height / 2.0);
 
         for (MapStateData mapStateData : ItemRegistry.MapBook.getMapStates(this.item, (this.client != null ? this.client.world : null))) {
-            this.addDrawable(new MapTile(this, mapStateData.getId(), mapStateData.getMapState(), this.client));
+            this.addDrawable(new MapTile(this, mapStateData.id(), mapStateData.mapState(), this.client));
         }
 
         this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (widget) -> close()).dimensions(this.width / 2 - 100, this.height / 4 + 144, 200, 20).build());
@@ -86,15 +79,14 @@ public final class MapBookScreen extends Screen {
         if (context != null) {
             if (this.scale != this.targetScale) {
                 float newScale = MathHelper.lerp(delta, this.scale, this.targetScale);
-                this.setScale(newScale, (double)mouseX, (double)mouseY);
+                this.setScale(newScale, mouseX, mouseY);
             }
 
             super.render(context, mouseX, mouseY, delta);
-            MinecraftClient var7 = this.client;
-            if (var7 != null) {
-                ClientPlayerEntity var8 = var7.player;
-                if (var8 != null) {
-                    this.renderPlayerIcon(context, (float)var8.getX(), (float)var8.getZ(), var8.getYaw());
+            if (this.client != null) {
+                ClientPlayerEntity player = this.client.player;
+                if (player != null) {
+                    this.renderPlayerIcon(context, (float)player.getX(), (float)player.getZ(), player.getYaw());
                 }
             }
 
@@ -117,10 +109,8 @@ public final class MapBookScreen extends Screen {
         //float h = (float)(b / 16 + 0) / 16.0F;
         //float l = (float)(b % 16 + 1) / 16.0F;
         //float m = (float)(b / 16 + 1) / 16.0F;
-        //Matrix4f var11 = context.getMatrices().peek().getPositionMatrix();
-        //Matrix4f matrix4f2 = var11;
-        //VertexConsumer var12 = context.getVertexConsumers().getBuffer(this.MAP_ICONS_RENDER_LAYER);
-        //VertexConsumer vertexConsumer2 = var12;
+        //Matrix4f matrix4f2 = context.getMatrices().peek().getPositionMatrix();
+        //VertexConsumer vertexConsumer2 = context.getVertexConsumers().getBuffer(this.MAP_ICONS_RENDER_LAYER);
         //vertexConsumer2.vertex(matrix4f2, -1.0F, 1.0F, -0.1F).color(255, 255, 255, 255).texture(g, h).light(15728880).next();
         //vertexConsumer2.vertex(matrix4f2, 1.0F, 1.0F, -0.1F).color(255, 255, 255, 255).texture(l, h).light(15728880).next();
         //vertexConsumer2.vertex(matrix4f2, 1.0F, -1.0F, -0.1F).color(255, 255, 255, 255).texture(l, m).light(15728880).next();

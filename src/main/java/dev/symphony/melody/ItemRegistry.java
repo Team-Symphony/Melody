@@ -10,7 +10,7 @@ import net.minecraft.registry.Registry;
 import java.util.function.UnaryOperator;
 
 public class ItemRegistry {
-    public static MapBookItem MapBook = new MapBookItem(new Item.Settings().maxCount(1));
+    public static final MapBookItem MapBook = new MapBookItem(new Item.Settings().maxCount(1));
 
 
 

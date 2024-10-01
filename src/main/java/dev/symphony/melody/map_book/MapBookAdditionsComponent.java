@@ -13,10 +13,6 @@ public record MapBookAdditionsComponent(ArrayList<Integer> additions) {
     public static final Codec<MapBookAdditionsComponent> CODEC = null;
     public static final PacketCodec<RegistryByteBuf, MapBookAdditionsComponent> PACKET_CODEC = null;
 
-    public MapBookAdditionsComponent(ArrayList<Integer> additions) {
-        this.additions = additions;
-    }
-
     public ArrayList<Integer> additions() {
         return this.additions;
     }
