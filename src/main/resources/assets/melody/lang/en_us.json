@@ -1,3 +1,8 @@
 {
-  "symphony.feature_tracker": "Feature Tracker"
+  "symphony.feature_tracker": "Feature Tracker",
+  "item.melody.map_book": "Map Book",
+  "item.melody.map_book_empty": "Empty Map Book",
+  "item.melody.map_book_new": "New Map Book",
+  "item.melody.map_book_id": "Book: %s",
+  "item.melody.map_book_maps": "Maps: %s"
 }

@@ -258,11 +258,11 @@ public final class MapBookItem extends NetworkSyncedItem {
                     mapsCount += mapBookState.getMapIDs().size();
                 }
 
-                tooltip.add(Text.translatable("item.melody.map_book_id").append(ScreenTexts.SPACE).append(String.valueOf(id + 1)).formatted(Formatting.GRAY));
+                tooltip.add(Text.translatable("item.melody.map_book_id", String.valueOf(id + 1)).formatted(Formatting.GRAY));
             }
 
             if (mapsCount > 0) {
-                tooltip.add(Text.translatable("item.melody.map_book_maps").append(ScreenTexts.SPACE).append(String.valueOf(mapsCount)).formatted(Formatting.GRAY));
+                tooltip.add(Text.translatable("item.melody.map_book_maps", String.valueOf(mapsCount)).formatted(Formatting.GRAY));
             }
         }
     }
