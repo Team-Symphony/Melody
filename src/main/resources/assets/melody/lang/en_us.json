@@ -1,3 +1,7 @@
 {
-  "symphony.feature_tracker": "Feature Tracker"
+  "symphony.feature_tracker": "Feature Tracker",
+
+  "melody.midnightconfig.title": "Melody Config",
+  "melody.midnightconfig.reloadWarning": "Most config options will require a game restart to take affect!",
+  "melody.midnightconfig.category.melody": "Melody"
 }
