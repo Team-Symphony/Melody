@@ -29,9 +29,7 @@ public final class MapBookStateManager {
 
     @NotNull
     public MapBookState createMapBookState(@NotNull NbtCompound nbt) {
-        MapBookState state = new MapBookState();
-        state.fromNbt(nbt);
-        return state;
+        return new MapBookState().fromNbt(nbt);
     }
 
     @Nullable

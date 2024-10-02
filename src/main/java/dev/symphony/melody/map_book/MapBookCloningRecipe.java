@@ -70,7 +70,7 @@ public final class MapBookCloningRecipe extends SpecialCraftingRecipe {
 
     //TODO: remainder needs to be updated to new system
     @NotNull
-    public DefaultedList<ItemStack> getRemainder(@Nullable RecipeInputInventory inventory) {
+    public DefaultedList<ItemStack> getRemainder(RecipeInputInventory inventory) {
         DefaultedList<ItemStack> result = DefaultedList.ofSize(inventory.size(), ItemStack.EMPTY);
 
         for(int i = 0; i < result.size(); i++) {

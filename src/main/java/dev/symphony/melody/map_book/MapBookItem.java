@@ -11,6 +11,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.item.map.MapState;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.MinecraftServer;
@@ -30,14 +31,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 public final class MapBookItem extends NetworkSyncedItem {
-    @NotNull
-    private final String MAP_BOOK_KEY = "melody:map_book";
-    @NotNull
-    private final String ADDITIONS_KEY = "melody:additions";
-
-    public MapBookItem(@Nullable Item.Settings settings) {
+    public MapBookItem(Item.Settings settings) {
         super(settings);
     }
 
@@ -61,7 +58,7 @@ public final class MapBookItem extends NetworkSyncedItem {
     }
 
     @NotNull
-    public TypedActionResult<ItemStack> use(@Nullable World world, @Nullable PlayerEntity user, @Nullable Hand hand) {
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if (world != null && !world.isClient()) {
             ServerPlayerEntity player = (ServerPlayerEntity)user;
             ItemStack item = user.getStackInHand(hand);
@@ -121,25 +118,24 @@ public final class MapBookItem extends NetworkSyncedItem {
     }
 
     @NotNull
-    public ArrayList<MapStateData> getMapStates(@NotNull ItemStack stack, @Nullable World world) {
+    public ArrayList<MapStateData> getMapStates(@NotNull ItemStack stack, @NotNull World world) {
         ArrayList<MapStateData> list = new ArrayList<>();
-        if (world != null) {
-            MapBookState mapBookState;
-            if (world.isClient) {
-                mapBookState = MapBookStateManager.INSTANCE.getClientMapBookState(this.getMapBookId(stack));
-            } else {
-                mapBookState = MapBookStateManager.INSTANCE.getMapBookState(world.getServer(), this.getMapBookId(stack));
-            }
 
-            if (mapBookState != null) {
-                for (Integer i : mapBookState.getMapIDs()) {
-                    MapState mapState = FilledMapItem.getMapState(new MapIdComponent(i), world);
-                    if (mapState != null) {
-                        list.add(new MapStateData(new MapIdComponent(i), mapState));
-                    }
+        MapBookState mapBookState = null;
+        if (world.isClient) {
+            mapBookState = MapBookStateManager.INSTANCE.getClientMapBookState(this.getMapBookId(stack));
+        } else if (world.getServer() != null){
+            mapBookState = MapBookStateManager.INSTANCE.getMapBookState(world.getServer(), this.getMapBookId(stack));
+        }
+
+        if (mapBookState != null) {
+            for (Integer i : mapBookState.getMapIDs()) {
+                MapState mapState = FilledMapItem.getMapState(new MapIdComponent(i), world);
+                if (mapState != null) {
+                    list.add(new MapStateData(new MapIdComponent(i), mapState));
                 }
-
             }
+
         }
         return list;
     }
@@ -220,7 +216,7 @@ public final class MapBookItem extends NetworkSyncedItem {
             return false;
         } else {
             ItemStack newMap = FilledMapItem.createMap(world, (int)Math.floor(pos.x), (int)Math.floor(pos.z), (byte)scale, true, false);
-            state.addMapID(newMap.get(DataComponentTypes.MAP_ID).id());
+            state.addMapID(Objects.requireNonNull(newMap.get(DataComponentTypes.MAP_ID)).id());
             return true;
         }
     }
@@ -238,18 +234,15 @@ public final class MapBookItem extends NetworkSyncedItem {
         }
     }
 
-    public void appendTooltip(@Nullable ItemStack stack, @Nullable World world, @Nullable List<Text> tooltip, @Nullable TooltipContext context) {
+    @Override
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if (stack != null) {
             int id = this.getMapBookId(stack);
 
             int mapsCount = stack.getOrDefault(ItemRegistry.MAP_BOOK_ADDITIONS, MapBookAdditionsComponent.DEFAULT).additions().size();
             if (id != -1) {
-                MapBookState mapBookState;
-                if (world != null && !world.isClient) {
-                    mapBookState = MapBookStateManager.INSTANCE.getMapBookState(world.getServer(), id);
-                } else {
-                    mapBookState = MapBookStateManager.INSTANCE.getClientMapBookState(id);
-                }
+                //append tooltip is client-based, so its safe to get the client MapBookState
+                MapBookState mapBookState = MapBookStateManager.INSTANCE.getClientMapBookState(id);
 
                 if (mapBookState != null) {
                     mapsCount += mapBookState.getMapIDs().size();

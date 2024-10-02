@@ -3,6 +3,7 @@ package dev.symphony.melody.map_book;
 import dev.symphony.melody.ItemRegistry;
 import dev.symphony.melody.RecipeRegistry;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.MapIdComponent;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeSerializer;
@@ -48,15 +49,11 @@ public final class MapBookAdditionRecipe extends SpecialCraftingRecipe {
                     return null;
                 }
 
-                if (itemStack.contains(DataComponentTypes.MAP_ID)) {
-                    int id = itemStack.get(DataComponentTypes.MAP_ID).id();
-                    if (maps.contains(id)) {
-                        return null;
-                    }
-                    maps.add(id);
-                } else {
+                int id = itemStack.getOrDefault(DataComponentTypes.MAP_ID, new MapIdComponent(-1)).id();
+                if (id == -1 || maps.contains(id)) {
                     return null;
                 }
+                maps.add(id);
             } else {
                 if (mapBook != null) {
                     return null;
