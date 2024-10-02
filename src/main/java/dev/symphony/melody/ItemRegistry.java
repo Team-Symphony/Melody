@@ -6,13 +6,16 @@ import net.minecraft.component.ComponentType;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
 
 import java.util.function.UnaryOperator;
 
 public class ItemRegistry {
     public static final MapBookItem MapBook = new MapBookItem(new Item.Settings().maxCount(1));
 
-
+    public static void register() {
+        Registry.register(Registries.ITEM, Identifier.of(Melody.MOD_ID, "map_book"), MapBook);
+    }
 
     public static final ComponentType<MapBookAdditionsComponent> MAP_BOOK_ADDITIONS = registerComponent("melody_map_book_additions", (builder) -> builder.codec(MapBookAdditionsComponent.CODEC).packetCodec(MapBookAdditionsComponent.PACKET_CODEC).cache());
 

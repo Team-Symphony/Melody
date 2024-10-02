@@ -266,7 +266,7 @@ public final class MapBookItem extends NetworkSyncedItem {
         if (additionsComponent == null) return;
         stack.remove(ItemRegistry.MAP_BOOK_ADDITIONS);
 
-        ArrayList<Integer> additions = additionsComponent.additions();
+        List<Integer> additions = additionsComponent.additions();
         if (!additions.isEmpty()) {
             MapBookState state = this.getOrCreateMapBookState(stack, world.getServer());
 

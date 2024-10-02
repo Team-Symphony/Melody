@@ -20,6 +20,8 @@ public class Melody implements ModInitializer {
 	public void onInitialize() {
 		//TODO: initialise midnight config (also add it)
 
+		ItemRegistry.register();
+		RecipeRegistry.register();
 		MapBookOpenPayload.register();
 		MapBookSyncPayload.register();
 	}

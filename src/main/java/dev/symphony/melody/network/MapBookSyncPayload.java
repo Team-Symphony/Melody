@@ -18,7 +18,7 @@ public record MapBookSyncPayload(int bookID, int[] mapIDs) implements CustomPayl
     public static final PacketCodec<RegistryByteBuf, MapBookSyncPayload> PACKET_CODEC = PacketCodec.tuple(
             PacketCodecs.VAR_INT,
             MapBookSyncPayload::bookID,
-            IntArray.CODEC,
+            IntArray.ARRAY_CODEC,
             MapBookSyncPayload::mapIDs,
             MapBookSyncPayload::new
     );
