@@ -1,5 +1,7 @@
 package dev.symphony.melody;
 
+import dev.symphony.melody.network.MapBookOpenPayload;
+import dev.symphony.melody.network.MapBookSyncPayload;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.util.Identifier;
@@ -17,5 +19,8 @@ public class Melody implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		//TODO: initialise midnight config (also add it)
+
+		MapBookOpenPayload.register();
+		MapBookSyncPayload.register();
 	}
 }

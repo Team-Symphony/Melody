@@ -1,7 +1,9 @@
 package dev.symphony.melody.map_book;
 
 import dev.symphony.melody.ItemRegistry;
-import dev.symphony.melody.network.SyncHandler;
+import dev.symphony.melody.network.MapBookOpenPayload;
+import dev.symphony.melody.network.MapBookSyncPayload;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.MapIdComponent;
@@ -11,7 +13,6 @@ import net.minecraft.item.*;
 import net.minecraft.item.map.MapState;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.screen.ScreenTexts;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -77,9 +78,9 @@ public final class MapBookItem extends NetworkSyncedItem {
                 }
             }
             this.sendMapUpdates(player, item);
-            SyncHandler.INSTANCE.mapBookSync(player, item);
-            if (openMap && this.getMapBookId(item) != null) {
-                SyncHandler.INSTANCE.onOpenMapBook(player, item);
+            mapBookSync(player, item);
+            if (openMap && this.getMapBookId(item) != -1) {
+                mapBookOpen(player, item);
             }
         }
 
@@ -113,7 +114,7 @@ public final class MapBookItem extends NetworkSyncedItem {
                     }
 
                     this.sendMapUpdates((ServerPlayerEntity)entity, stack);
-                    SyncHandler.INSTANCE.mapBookSync((ServerPlayerEntity)entity, stack);
+                    mapBookSync((ServerPlayerEntity)entity, stack);
                 }
             }
         }
@@ -181,12 +182,8 @@ public final class MapBookItem extends NetworkSyncedItem {
         return Math.max(Math.abs(pos.x - (double)mapState.centerX), Math.abs(pos.z - (double)mapState.centerZ)) - (double)(64 * (1 << mapState.scale));
     }
 
-    @Nullable
-    public Integer getMapBookId(@NotNull ItemStack stack) {
-        if (stack.contains(DataComponentTypes.MAP_ID)) {
-            return stack.get(DataComponentTypes.MAP_ID).id();
-        }
-        return null;
+    public int getMapBookId(@NotNull ItemStack stack) {
+        return stack.getOrDefault(DataComponentTypes.MAP_ID, new MapIdComponent(-1)).id();
     }
 
     private int allocateMapBookId(MinecraftServer server) {
@@ -230,7 +227,7 @@ public final class MapBookItem extends NetworkSyncedItem {
 
     @NotNull
     public Text getName(@Nullable ItemStack stack) {
-        if (stack != null && this.getMapBookId(stack) == null) {
+        if (stack != null && this.getMapBookId(stack) == -1) {
             if (stack.contains(ItemRegistry.MAP_BOOK_ADDITIONS)) {
                 return Text.translatable("item.melody.map_book_new");
             } else {
@@ -243,10 +240,10 @@ public final class MapBookItem extends NetworkSyncedItem {
 
     public void appendTooltip(@Nullable ItemStack stack, @Nullable World world, @Nullable List<Text> tooltip, @Nullable TooltipContext context) {
         if (stack != null) {
-            Integer id = this.getMapBookId(stack);
+            int id = this.getMapBookId(stack);
 
             int mapsCount = stack.getOrDefault(ItemRegistry.MAP_BOOK_ADDITIONS, MapBookAdditionsComponent.DEFAULT).additions().size();
-            if (id != null) {
+            if (id != -1) {
                 MapBookState mapBookState;
                 if (world != null && !world.isClient) {
                     mapBookState = MapBookStateManager.INSTANCE.getMapBookState(world.getServer(), id);
@@ -284,5 +281,13 @@ public final class MapBookItem extends NetworkSyncedItem {
                 state.addMapID(id);
             }
         }
+    }
+
+    public void mapBookOpen(@NotNull ServerPlayerEntity player, @NotNull ItemStack itemStack) {
+        ServerPlayNetworking.send(player, new MapBookOpenPayload(itemStack));
+    }
+
+    public void mapBookSync(@NotNull ServerPlayerEntity player, @NotNull ItemStack itemStack) {
+        ServerPlayNetworking.send(player, MapBookSyncPayload.of(player, itemStack));
     }
 }

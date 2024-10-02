@@ -1,34 +1,28 @@
 package dev.symphony.melody.network;
 
-import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
-public class MapBookOpenPayload implements CustomPayload {
-    public static final Id<MapBookOpenPayload> ID = new Id<>(Identifier.of("melody", "map_book_open"));
+public record MapBookOpenPayload(ItemStack itemStack) implements CustomPayload {
+    public static final Id<MapBookOpenPayload> PACKET_ID = new Id<>(Identifier.of("melody", "map_book_open"));
 
-    public ItemStack itemStack;
+    public static final PacketCodec<RegistryByteBuf, MapBookOpenPayload> PACKET_CODEC = PacketCodec.tuple(
+            ItemStack.PACKET_CODEC,
+            MapBookOpenPayload::itemStack,
+            MapBookOpenPayload::new
+    );
+
 
     @Override
     public Id<? extends CustomPayload> getId() {
-        return ID;
+        return PACKET_ID;
     }
 
-    public MapBookOpenPayload(ServerPlayerEntity player, ItemStack itemStack) {
-        this.itemStack = itemStack;
-    }
-
-    //TODO: MAKE PACKETS WORK (ItemStack.PACKET_CODEC exists and should make it easy)
-    public PacketByteBuf encode() {
-        PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
-        buf.writeItemStack(itemStack);
-        return buf;
-    }
-
-    public void decode(PacketByteBuf buf) {
-        itemStack = buf.readItemStack();
+    public static void register() {
+        PayloadTypeRegistry.playS2C().register(PACKET_ID, PACKET_CODEC);
     }
 }

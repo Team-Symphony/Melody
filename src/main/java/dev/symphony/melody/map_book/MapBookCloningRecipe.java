@@ -44,7 +44,7 @@ public final class MapBookCloningRecipe extends SpecialCraftingRecipe {
                     return null;
                 }
 
-                boolean isEmpty = ((MapBookItem)itemStack.getItem()).getMapBookId(itemStack) == null;
+                boolean isEmpty = ((MapBookItem)itemStack.getItem()).getMapBookId(itemStack) == -1;
                 if (isEmpty) {
                     if (emptyMap) {
                         return null;
@@ -81,7 +81,7 @@ public final class MapBookCloningRecipe extends SpecialCraftingRecipe {
                     if (item.getRecipeRemainder() != null) {
                         result.set(i, stack.getRecipeRemainder());
                     } else if (item instanceof MapBookItem) {
-                        if (((MapBookItem)stack.getItem()).getMapBookId(stack) != null) {
+                        if (((MapBookItem)stack.getItem()).getMapBookId(stack) != -1) {
                             result.set(i, stack.copyWithCount(1));
                         }
                     }
