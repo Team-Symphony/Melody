@@ -1,5 +1,10 @@
 {
   "symphony.feature_tracker": "Feature Tracker",
+
+  "melody.midnightconfig.title": "Melody Config",
+  "melody.midnightconfig.reloadWarning": "Most config options will require a game restart to take affect!",
+  "melody.midnightconfig.category.melody": "Melody",
+
   "item.melody.map_book": "Map Book",
   "item.melody.map_book_empty": "Empty Map Book",
   "item.melody.map_book_new": "New Map Book",
