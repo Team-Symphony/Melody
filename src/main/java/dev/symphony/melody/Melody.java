@@ -4,13 +4,12 @@ import dev.symphony.melody.network.MapBookOpenPayload;
 import dev.symphony.melody.network.MapPositionPayload;
 import dev.symphony.melody.network.MapPositionRequestPayload;
 import dev.symphony.melody.network.MapBookSyncPayload;
-import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.midnightdust.lib.config.MidnightConfig;
-import net.fabricmc.api.ModInitializer;
 import dev.symphony.melody.config.MelodyConfig;
 
 public class Melody implements ModInitializer {
