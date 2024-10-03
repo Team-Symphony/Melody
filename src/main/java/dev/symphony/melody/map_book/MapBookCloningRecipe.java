@@ -2,7 +2,6 @@ package dev.symphony.melody.map_book;
 
 import dev.symphony.melody.ItemRegistry;
 import dev.symphony.melody.RecipeRegistry;
-import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
@@ -68,13 +67,12 @@ public final class MapBookCloningRecipe extends SpecialCraftingRecipe {
         }
     }
 
-    //TODO: remainder needs to be updated to new system
-    @NotNull
-    public DefaultedList<ItemStack> getRemainder(RecipeInputInventory inventory) {
-        DefaultedList<ItemStack> result = DefaultedList.ofSize(inventory.size(), ItemStack.EMPTY);
+    @Override
+    public DefaultedList<ItemStack> getRemainder(CraftingRecipeInput craftingRecipeInput) {
+        DefaultedList<ItemStack> result = DefaultedList.ofSize(craftingRecipeInput.getSize(), ItemStack.EMPTY);
 
         for(int i = 0; i < result.size(); i++) {
-            ItemStack stack = inventory.getStack(i);
+            ItemStack stack = craftingRecipeInput.getStacks().get(i);
             if (stack != null) {
                 Item item = stack.getItem();
                 if (item != null) {
