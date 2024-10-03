@@ -3,9 +3,9 @@
   "package": "dev.symphony.melody.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-
+    "map_book.MapStateMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-	}
+  }
 }

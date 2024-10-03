@@ -1,6 +1,8 @@
 package dev.symphony.melody;
 
 import dev.symphony.melody.network.MapBookOpenPayload;
+import dev.symphony.melody.network.MapPositionPayload;
+import dev.symphony.melody.network.MapPositionRequestPayload;
 import dev.symphony.melody.network.MapBookSyncPayload;
 import net.fabricmc.api.ModInitializer;
 
@@ -22,7 +24,11 @@ public class Melody implements ModInitializer {
 
 		ItemRegistry.register();
 		RecipeRegistry.register();
+
 		MapBookOpenPayload.register();
 		MapBookSyncPayload.register();
+
+		MapPositionPayload.register();
+		MapPositionRequestPayload.register();
 	}
 }
