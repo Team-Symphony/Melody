@@ -1,10 +1,11 @@
 package dev.symphony.melody;
 
-import net.fabricmc.api.ModInitializer;
-
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import eu.midnightdust.lib.config.MidnightConfig;
+import net.fabricmc.api.ModInitializer;
+import dev.symphony.melody.config.MelodyConfig;
 
 public class Melody implements ModInitializer {
 	public static final String MOD_ID = "melody";
@@ -16,6 +17,7 @@ public class Melody implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		//TODO: initialise midnight config (also add it)
+		//Config
+		MidnightConfig.init(MOD_ID, MelodyConfig.class);
 	}
 }
