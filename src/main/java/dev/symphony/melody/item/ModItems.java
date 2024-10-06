@@ -11,9 +11,11 @@ import net.minecraft.util.Identifier;
 
 public class ModItems {
 
-    // public static final Item NETHERITE_HORSE_ARMOR
+    // FEATURE: Netherite horse armor
+    // AUTHORS: Flatkat
+    // ARTISTS: Eleanor
     public static final Item NETHERITE_HORSE_ARMOR = registerItem(
-            "netherite_horse_armor", new AnimalArmorItem(ArmorMaterials.NETHERITE, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1))
+            "netherite_horse_armor", new AnimalArmorItem(ArmorMaterials.NETHERITE, AnimalArmorItem.Type.EQUESTRIAN, false, new Item.Settings().maxCount(1).fireproof())
     );
 
     public static Item registerItem(String name, Item item){
