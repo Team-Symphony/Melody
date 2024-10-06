@@ -15,7 +15,7 @@
   },
   "fabric:load_conditions": [
     {
-      "condition": "harmony:config",
+      "condition": "melody:config",
       "config_name": "item/netherite_horse_armor"
     }
   ]
