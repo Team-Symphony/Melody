@@ -22,7 +22,5 @@ public class ModItems {
 
     public static void registerModItems(){
         Melody.LOGGER.info("Registering Mod Items for" + Melody.MOD_ID);
-
-        //TODO: Add Melody tag and creative inventory tag
     }
 }

@@ -1,5 +1,6 @@
 package dev.symphony.melody;
 
+import dev.symphony.melody.item.ModItemGroups;
 import dev.symphony.melody.item.ModItems;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ public class Melody implements ModInitializer {
 		MidnightConfig.init(MOD_ID, MelodyConfig.class);
 
 		// gay stuff
+		ModItemGroups.registerItemGroups();
 		ModItems.registerModItems();
 	}
 }

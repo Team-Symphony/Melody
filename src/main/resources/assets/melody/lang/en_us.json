@@ -3,5 +3,7 @@
 
   "melody.midnightconfig.title": "Melody Config",
   "melody.midnightconfig.reloadWarning": "Most config options will require a game restart to take affect!",
-  "melody.midnightconfig.category.melody": "Melody"
+  "melody.midnightconfig.category.melody": "Melody",
+
+  "melody.itemgroup.melody_item_group": "Melody"
 }
