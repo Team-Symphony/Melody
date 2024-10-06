@@ -1,5 +1,6 @@
 package dev.symphony.melody;
 
+import dev.symphony.melody.item.ModItems;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,10 @@ public class Melody implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		//Config
+		// Config
 		MidnightConfig.init(MOD_ID, MelodyConfig.class);
+
+		// gay stuff
+		ModItems.registerModItems();
 	}
 }
