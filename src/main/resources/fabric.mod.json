@@ -4,10 +4,12 @@
 	"version": "${version}",
 	"name": "Melody",
 	"description": "This is an example description! Tell everyone what your mod is about!",
-	"authors": [ "Team Symphony" ],
-	"contributors": [
+	"authors": [
+		"Team Symphony",
 		"Flatkat",
-		"Nettakrim",
+		"Nettakrim"
+	],
+	"contributors": [
 		"Eleanor"
 	],
 	"contact": {
