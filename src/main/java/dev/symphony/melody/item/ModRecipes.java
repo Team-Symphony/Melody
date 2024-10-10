@@ -1,4 +1,4 @@
-package dev.symphony.melody;
+package dev.symphony.melody.item;
 
 import dev.symphony.melody.item.map_book.MapBookAdditionRecipe;
 import dev.symphony.melody.item.map_book.MapBookCloningRecipe;
@@ -7,7 +7,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
-public final class RecipeRegistry {
+public final class ModRecipes {
     public static final SpecialRecipeSerializer<MapBookAdditionRecipe> MAP_BOOK_ADDITION_SERIALIZER = new SpecialRecipeSerializer<>(MapBookAdditionRecipe::new);
     public static final SpecialRecipeSerializer<MapBookCloningRecipe> MAP_BOOK_CLONING_SERIALIZER = new SpecialRecipeSerializer<>(MapBookCloningRecipe::new);
 

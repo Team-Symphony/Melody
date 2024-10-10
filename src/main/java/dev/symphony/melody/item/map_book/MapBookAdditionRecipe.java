@@ -1,6 +1,6 @@
 package dev.symphony.melody.item.map_book;
 
-import dev.symphony.melody.RecipeRegistry;
+import dev.symphony.melody.item.ModRecipes;
 import dev.symphony.melody.item.ModItems;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.MapIdComponent;
@@ -83,7 +83,7 @@ public final class MapBookAdditionRecipe extends SpecialCraftingRecipe {
 
     @NotNull
     public RecipeSerializer<MapBookAdditionRecipe> getSerializer() {
-        return RecipeRegistry.MAP_BOOK_ADDITION_SERIALIZER;
+        return ModRecipes.MAP_BOOK_ADDITION_SERIALIZER;
     }
 
     private record AdditionResult(@NotNull ItemStack mapBook, @NotNull ArrayList<Integer> maps) {

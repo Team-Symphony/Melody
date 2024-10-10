@@ -1,6 +1,6 @@
 package dev.symphony.melody.item.map_book;
 
-import dev.symphony.melody.RecipeRegistry;
+import dev.symphony.melody.item.ModRecipes;
 import dev.symphony.melody.item.ModItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -96,6 +96,6 @@ public final class MapBookCloningRecipe extends SpecialCraftingRecipe {
 
     @NotNull
     public RecipeSerializer<MapBookCloningRecipe> getSerializer() {
-        return RecipeRegistry.MAP_BOOK_CLONING_SERIALIZER;
+        return ModRecipes.MAP_BOOK_CLONING_SERIALIZER;
     }
 }
