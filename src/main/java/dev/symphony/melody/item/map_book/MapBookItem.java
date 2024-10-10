@@ -1,6 +1,6 @@
-package dev.symphony.melody.map_book;
+package dev.symphony.melody.item.map_book;
 
-import dev.symphony.melody.ItemRegistry;
+import dev.symphony.melody.item.ModItems;
 import dev.symphony.melody.network.MapBookOpenPayload;
 import dev.symphony.melody.network.MapBookSyncPayload;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -224,7 +224,7 @@ public final class MapBookItem extends NetworkSyncedItem {
     @NotNull
     public Text getName(@Nullable ItemStack stack) {
         if (stack != null && this.getMapBookId(stack) == -1) {
-            if (stack.contains(ItemRegistry.MAP_BOOK_ADDITIONS)) {
+            if (stack.contains(ModItems.MAP_BOOK_ADDITIONS)) {
                 return Text.translatable("item.melody.map_book_new");
             } else {
                 return Text.translatable("item.melody.map_book_empty");
@@ -239,7 +239,7 @@ public final class MapBookItem extends NetworkSyncedItem {
         if (stack != null) {
             int id = this.getMapBookId(stack);
 
-            int mapsCount = stack.getOrDefault(ItemRegistry.MAP_BOOK_ADDITIONS, MapBookAdditionsComponent.DEFAULT).additions().size();
+            int mapsCount = stack.getOrDefault(ModItems.MAP_BOOK_ADDITIONS, MapBookAdditionsComponent.DEFAULT).additions().size();
             if (id != -1) {
                 //append tooltip is client-based, so its safe to get the client MapBookState
                 MapBookState mapBookState = MapBookStateManager.INSTANCE.getClientMapBookState(id);
@@ -258,13 +258,13 @@ public final class MapBookItem extends NetworkSyncedItem {
     }
 
     public void setAdditions(@NotNull ItemStack stack, @NotNull ArrayList<Integer> additions) {
-        stack.set(ItemRegistry.MAP_BOOK_ADDITIONS, new MapBookAdditionsComponent(additions));
+        stack.set(ModItems.MAP_BOOK_ADDITIONS, new MapBookAdditionsComponent(additions));
     }
 
     private void applyAdditions(ItemStack stack, ServerWorld world) {
-        MapBookAdditionsComponent additionsComponent = stack.getOrDefault(ItemRegistry.MAP_BOOK_ADDITIONS, null);
+        MapBookAdditionsComponent additionsComponent = stack.getOrDefault(ModItems.MAP_BOOK_ADDITIONS, null);
         if (additionsComponent == null) return;
-        stack.remove(ItemRegistry.MAP_BOOK_ADDITIONS);
+        stack.remove(ModItems.MAP_BOOK_ADDITIONS);
 
         List<Integer> additions = additionsComponent.additions();
         if (!additions.isEmpty()) {

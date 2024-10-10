@@ -1,4 +1,4 @@
-package dev.symphony.melody.map_book;
+package dev.symphony.melody.item.map_book;
 
 import com.mojang.serialization.Codec;
 import dev.symphony.melody.network.IntArray;

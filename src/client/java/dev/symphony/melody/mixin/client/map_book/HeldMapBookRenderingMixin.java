@@ -2,8 +2,8 @@ package dev.symphony.melody.mixin.client.map_book;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import dev.symphony.melody.map_book.MapBookItem;
-import dev.symphony.melody.map_book.MapStateData;
+import dev.symphony.melody.item.map_book.MapBookItem;
+import dev.symphony.melody.item.map_book.MapStateData;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.item.HeldItemRenderer;
 import net.minecraft.component.DataComponentTypes;

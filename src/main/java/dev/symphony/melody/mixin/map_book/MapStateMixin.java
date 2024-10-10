@@ -1,6 +1,6 @@
 package dev.symphony.melody.mixin.map_book;
 
-import dev.symphony.melody.map_book.MapStateAccessor;
+import dev.symphony.melody.item.map_book.MapStateAccessor;
 import net.minecraft.item.map.MapState;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

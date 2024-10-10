@@ -1,6 +1,8 @@
 package dev.symphony.melody.map_book;
 
 import dev.symphony.melody.ItemRegistry;
+import dev.symphony.melody.item.ModItems;
+import dev.symphony.melody.item.map_book.MapStateData;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -54,7 +56,7 @@ public final class MapBookScreen extends Screen {
 
         this.setScale(this.targetScale, (double)this.width / 2.0, (double)this.height / 2.0);
 
-        for (MapStateData mapStateData : ItemRegistry.MapBook.getMapStates(this.item, (this.client != null ? this.client.world : null))) {
+        for (MapStateData mapStateData : ModItems.MAP_BOOK.getMapStates(this.item, (this.client != null ? this.client.world : null))) {
             this.addDrawable(new MapTile(this, mapStateData.id(), mapStateData.mapState(), this.client));
         }
 

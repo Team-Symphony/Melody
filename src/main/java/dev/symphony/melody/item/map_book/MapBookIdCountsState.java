@@ -1,4 +1,4 @@
-package dev.symphony.melody.map_book;
+package dev.symphony.melody.item.map_book;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;

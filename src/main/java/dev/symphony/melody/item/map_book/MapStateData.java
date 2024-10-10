@@ -1,4 +1,4 @@
-package dev.symphony.melody.map_book;
+package dev.symphony.melody.item.map_book;
 
 import net.minecraft.component.type.MapIdComponent;
 import net.minecraft.item.map.MapState;

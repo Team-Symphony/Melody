@@ -1,9 +1,9 @@
 package dev.symphony.melody.network;
 
 import dev.symphony.melody.map_book.MapBookScreen;
-import dev.symphony.melody.map_book.MapBookState;
-import dev.symphony.melody.map_book.MapBookStateManager;
-import dev.symphony.melody.map_book.MapStateAccessor;
+import dev.symphony.melody.item.map_book.MapBookState;
+import dev.symphony.melody.item.map_book.MapBookStateManager;
+import dev.symphony.melody.item.map_book.MapStateAccessor;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.map.MapState;

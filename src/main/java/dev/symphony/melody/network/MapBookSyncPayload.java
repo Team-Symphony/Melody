@@ -1,8 +1,8 @@
 package dev.symphony.melody.network;
 
-import dev.symphony.melody.map_book.MapBookItem;
-import dev.symphony.melody.map_book.MapBookState;
-import dev.symphony.melody.map_book.MapBookStateManager;
+import dev.symphony.melody.item.map_book.MapBookItem;
+import dev.symphony.melody.item.map_book.MapBookState;
+import dev.symphony.melody.item.map_book.MapBookStateManager;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;

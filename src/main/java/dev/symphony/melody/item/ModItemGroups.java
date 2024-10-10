@@ -15,6 +15,7 @@ public class ModItemGroups {
                     .displayName(Text.translatable("itemgroup.melody.melody_item_group"))
                     .entries((displayContext, entries) -> {
                         entries.add(ModItems.NETHERITE_HORSE_ARMOR);
+                        entries.add(ModItems.MAP_BOOK);
 
                     }).build());
 

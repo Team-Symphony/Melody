@@ -1,7 +1,7 @@
-package dev.symphony.melody.map_book;
+package dev.symphony.melody.item.map_book;
 
-import dev.symphony.melody.ItemRegistry;
 import dev.symphony.melody.RecipeRegistry;
+import dev.symphony.melody.item.ModItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
@@ -39,7 +39,7 @@ public final class MapBookCloningRecipe extends SpecialCraftingRecipe {
 
         for (ItemStack itemStack : craftingRecipeInput.getStacks()) {
             if (!itemStack.isEmpty()) {
-                if (!itemStack.isOf(ItemRegistry.MapBook)) {
+                if (!itemStack.isOf(ModItems.MAP_BOOK)) {
                     return null;
                 }
 

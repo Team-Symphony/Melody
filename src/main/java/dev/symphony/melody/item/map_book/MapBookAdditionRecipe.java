@@ -1,7 +1,7 @@
-package dev.symphony.melody.map_book;
+package dev.symphony.melody.item.map_book;
 
-import dev.symphony.melody.ItemRegistry;
 import dev.symphony.melody.RecipeRegistry;
+import dev.symphony.melody.item.ModItems;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.MapIdComponent;
 import net.minecraft.item.ItemStack;
@@ -44,7 +44,7 @@ public final class MapBookAdditionRecipe extends SpecialCraftingRecipe {
         for (ItemStack itemStack : craftingRecipeInput.getStacks()) {
             if (itemStack.isEmpty()) continue;
 
-            if (!itemStack.isOf(ItemRegistry.MapBook)) {
+            if (!itemStack.isOf(ModItems.MAP_BOOK)) {
                 if (!itemStack.isOf(Items.FILLED_MAP)) {
                     return null;
                 }
@@ -67,7 +67,7 @@ public final class MapBookAdditionRecipe extends SpecialCraftingRecipe {
             return null;
         }
         if (world != null) {
-            for (MapStateData mapStateData : ItemRegistry.MapBook.getMapStates(mapBook, world)) {
+            for (MapStateData mapStateData : ModItems.MAP_BOOK.getMapStates(mapBook, world)) {
                 if (maps.contains(mapStateData.id().id())) {
                     return null;
                 }

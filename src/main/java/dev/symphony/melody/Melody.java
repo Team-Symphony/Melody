@@ -34,12 +34,10 @@ public class Melody implements ModInitializer {
 		ResourceConditionType<MelodyConfigCondition> conditionType = ResourceConditionType.create(Identifier.of(Melody.MOD_ID, "config"), MelodyConfigCondition.CODEC);
 		ResourceConditions.register(conditionType);
 
-		// gay stuff
+		// gay stuff (registry)
 		ModItemGroups.registerItemGroups();
 		ModItems.registerModItems();
 
-        //Registry
-		ItemRegistry.register();
 		RecipeRegistry.register();
 
 		MapBookOpenPayload.register();

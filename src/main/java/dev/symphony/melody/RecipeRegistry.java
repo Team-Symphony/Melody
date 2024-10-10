@@ -1,7 +1,7 @@
 package dev.symphony.melody;
 
-import dev.symphony.melody.map_book.MapBookAdditionRecipe;
-import dev.symphony.melody.map_book.MapBookCloningRecipe;
+import dev.symphony.melody.item.map_book.MapBookAdditionRecipe;
+import dev.symphony.melody.item.map_book.MapBookCloningRecipe;
 import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
