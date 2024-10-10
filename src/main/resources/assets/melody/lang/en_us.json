@@ -5,6 +5,9 @@
   "melody.midnightconfig.reloadWarning": "Most config options will require a game restart to take affect!",
   "melody.midnightconfig.category.melody": "Melody",
 
+  "melody.midnightconfig.category.transportation": "Transportation",
+  "melody.midnightconfig.netheriteHorseArmor": "Netherite Horse Armor",
+
   "itemgroup.melody.melody_item_group": "Melody",
 
   "item.melody.netherite_horse_armor": "Netherite Horse Armor"
