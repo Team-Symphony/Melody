@@ -3,7 +3,6 @@ package dev.symphony.melody.item;
 import dev.symphony.melody.Melody;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.ArmorMaterials;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
@@ -14,7 +13,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
 import java.util.EnumMap;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.function.Supplier;
 

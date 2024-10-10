@@ -9,7 +9,7 @@ import java.util.List;
 
 public class IntArray {
     //why does this not exist? surely it exists somewhere
-    public static PacketCodec<ByteBuf, int[]> ARRAY_CODEC = new PacketCodec<>() {
+    public static final PacketCodec<ByteBuf, int[]> ARRAY_CODEC = new PacketCodec<>() {
         public int[] decode(ByteBuf byteBuf) {
             int length = VarInts.read(byteBuf);
 
@@ -29,7 +29,7 @@ public class IntArray {
         }
     };
 
-    public static PacketCodec<ByteBuf, List<Integer>> LIST_CODEC = new PacketCodec<>() {
+    public static final PacketCodec<ByteBuf, List<Integer>> LIST_CODEC = new PacketCodec<>() {
         public List<Integer> decode(ByteBuf byteBuf) {
             int length = VarInts.read(byteBuf);
 

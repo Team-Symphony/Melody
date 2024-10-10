@@ -28,9 +28,11 @@ public final class ClientSyncHandler {
     private static void mapPosition(MapPositionPayload payload, ClientPlayNetworking.Context context) {
         context.client().execute(() -> {
             ClientWorld world = context.client().world;
-            MapState mapstate = world.getMapState(payload.mapIdComponent());
-            if (mapstate != null) {
-                ((MapStateAccessor)mapstate).melody$setPosition(payload.centerX(), payload.centerZ());
+            if (world != null) {
+                MapState mapstate = world.getMapState(payload.mapIdComponent());
+                if (mapstate != null) {
+                    ((MapStateAccessor)mapstate).melody$setPosition(payload.centerX(), payload.centerZ());
+                }
             }
         });
     }

@@ -49,17 +49,19 @@ public final class MapBookScreen extends Screen {
     }
 
     protected void init() {
-        if (this.client != null) {
-            ClientPlayerEntity player = this.client.player;
-            if (player != null) {
-                this.x = -player.getX();
-                this.y = -player.getZ();
-            }
+        if (this.client == null || this.client.world == null) {
+            return;
+        }
+
+        ClientPlayerEntity player = this.client.player;
+        if (player != null) {
+            this.x = -player.getX();
+            this.y = -player.getZ();
         }
 
         this.setScale(this.targetScale, (double)this.width / 2.0, (double)this.height / 2.0);
 
-        for (MapStateData mapStateData : ModItems.MAP_BOOK.getMapStates(this.item, (this.client != null ? this.client.world : null))) {
+        for (MapStateData mapStateData : ModItems.MAP_BOOK.getMapStates(this.item, this.client.world)) {
             this.addDrawable(new MapTile(this, mapStateData.id(), mapStateData.mapState(), this.client));
         }
 
