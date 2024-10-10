@@ -8,4 +8,7 @@ public class MelodyConfig extends MidnightConfig {
     // Transportation
     public static final String TRANS = "transportation";
     @MelodyConfigCondition.ResourceConfigName(config_name = "item/netherite_horse_armor") @Entry(category = TRANS) public static boolean netheriteHorseArmor = true;
+
+    public static final String EXPLORATION = "exploration";
+    @MelodyConfigCondition.ResourceConfigName(config_name = "item/map_book") @Entry(category = EXPLORATION) public static boolean mapBook = true;
 }

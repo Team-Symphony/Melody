@@ -12,5 +12,11 @@
     "result": {
         "id": "melody:map_book",
         "count": 1
-    }
+    },
+    "fabric:load_conditions": [
+        {
+            "condition": "melody:config",
+            "config_name": "item/map_book"
+        }
+    ]
 }

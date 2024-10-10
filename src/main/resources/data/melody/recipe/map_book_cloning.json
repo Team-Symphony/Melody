@@ -1,4 +1,10 @@
 {
     "type": "melody:map_book_cloning",
-    "category": "misc"
+    "category": "misc",
+    "fabric:load_conditions": [
+        {
+            "condition": "melody:config",
+            "config_name": "item/map_book"
+        }
+    ]
 }
