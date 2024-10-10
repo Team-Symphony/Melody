@@ -1,5 +1,10 @@
 package dev.symphony.melody;
 
+import dev.symphony.melody.config.MelodyConfigCondition;
+import dev.symphony.melody.item.ModItemGroups;
+import dev.symphony.melody.item.ModItems;
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 import dev.symphony.melody.network.MapBookOpenPayload;
 import dev.symphony.melody.network.MapPositionPayload;
 import dev.symphony.melody.network.MapPositionRequestPayload;
@@ -22,8 +27,16 @@ public class Melody implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		//Config
+		// Config
 		MidnightConfig.init(MOD_ID, MelodyConfig.class);
+
+		MelodyConfigCondition.init();
+		ResourceConditionType<MelodyConfigCondition> conditionType = ResourceConditionType.create(Identifier.of(Melody.MOD_ID, "config"), MelodyConfigCondition.CODEC);
+		ResourceConditions.register(conditionType);
+
+		// gay stuff
+		ModItemGroups.registerItemGroups();
+		ModItems.registerModItems();
 
         //Registry
 		ItemRegistry.register();
