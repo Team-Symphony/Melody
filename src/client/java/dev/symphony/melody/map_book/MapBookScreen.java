@@ -1,6 +1,5 @@
 package dev.symphony.melody.map_book;
 
-import dev.symphony.melody.ItemRegistry;
 import dev.symphony.melody.item.ModItems;
 import dev.symphony.melody.item.map_book.MapStateData;
 import net.minecraft.client.gui.DrawContext;
@@ -8,12 +7,19 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.texture.Sprite;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.map.MapDecoration;
+import net.minecraft.item.map.MapDecorationTypes;
 import net.minecraft.screen.ScreenTexts;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RotationAxis;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix4f;
+
+import java.util.Optional;
 
 public final class MapBookScreen extends Screen {
     @NotNull
@@ -22,15 +28,12 @@ public final class MapBookScreen extends Screen {
     private double y;
     private float scale;
     private float targetScale;
-    @NotNull
-    private final RenderLayer MAP_ICONS_RENDER_LAYER;
 
     public MapBookScreen(@NotNull ItemStack item) {
         super(item.getName());
         this.item = item;
         this.scale = 1.0F;
         this.targetScale = 0.5F;
-        this.MAP_ICONS_RENDER_LAYER = RenderLayer.getText(Identifier.of("textures/map/map_icons.png"));
     }
 
     public double getX() {
@@ -96,28 +99,30 @@ public final class MapBookScreen extends Screen {
     }
 
     private void renderPlayerIcon(DrawContext context, float x, float z, float rotation) {
-        //TODO: change to using MapRenderer.this.mapDecorationsAtlasManager.getSprite(mapDecoration)
+        if (this.client == null) {
+            return;
+        }
 
-        //context.getMatrices().push();
-        //context.getMatrices().translate(this.x, this.y, 0.0);
-        //context.getMatrices().scale(this.scale, this.scale, 1.0F);
-        //context.getMatrices().translate((double)x + (double)this.width / 2.0, (double)z + (double)this.height / 2.0, 0.0);
-        //context.getMatrices().multiply(RotationAxis.POSITIVE_Z.rotationDegrees(rotation));
-        //context.getMatrices().scale(8.0F, 8.0F, -3.0F);
-        //context.getMatrices().translate(-0.125F, 0.125F, -10.0F);
-        //context.getMatrices().scale((float)1 / this.scale, (float)1 / this.scale, 1.0F);
-        //byte b = MapIcon.Type.PLAYER.getId();
-        //float g = (float)(b % 16 + 0) / 16.0F;
-        //float h = (float)(b / 16 + 0) / 16.0F;
-        //float l = (float)(b % 16 + 1) / 16.0F;
-        //float m = (float)(b / 16 + 1) / 16.0F;
-        //Matrix4f matrix4f2 = context.getMatrices().peek().getPositionMatrix();
-        //VertexConsumer vertexConsumer2 = context.getVertexConsumers().getBuffer(this.MAP_ICONS_RENDER_LAYER);
-        //vertexConsumer2.vertex(matrix4f2, -1.0F, 1.0F, -0.1F).color(255, 255, 255, 255).texture(g, h).light(15728880).next();
-        //vertexConsumer2.vertex(matrix4f2, 1.0F, 1.0F, -0.1F).color(255, 255, 255, 255).texture(l, h).light(15728880).next();
-        //vertexConsumer2.vertex(matrix4f2, 1.0F, -1.0F, -0.1F).color(255, 255, 255, 255).texture(l, m).light(15728880).next();
-        //vertexConsumer2.vertex(matrix4f2, -1.0F, -1.0F, -0.1F).color(255, 255, 255, 255).texture(g, m).light(15728880).next();
-        //context.getMatrices().pop();
+        context.getMatrices().push();
+        context.getMatrices().translate(this.x, this.y, 0.0);
+        context.getMatrices().scale(this.scale, this.scale, 1.0F);
+        context.getMatrices().translate((double)x + (double)this.width / 2.0, (double)z + (double)this.height / 2.0, 0.0);
+        context.getMatrices().multiply(RotationAxis.POSITIVE_Z.rotationDegrees(rotation));
+        context.getMatrices().scale(8.0F, 8.0F, -3.0F);
+        context.getMatrices().translate(-0.125F, 0.125F, -10.0F);
+        context.getMatrices().scale((float)1 / this.scale, (float)1 / this.scale, 1.0F);
+        Sprite sprite = client.getMapDecorationsAtlasManager().getSprite(new MapDecoration(MapDecorationTypes.PLAYER, (byte)0, (byte)0, (byte)0, Optional.empty()));
+        float g = sprite.getMinU();
+        float h = sprite.getMinV();
+        float l = sprite.getMaxU();
+        float m = sprite.getMaxV();
+        Matrix4f matrix4f2 = context.getMatrices().peek().getPositionMatrix();
+        VertexConsumer vertexConsumer2 = context.getVertexConsumers().getBuffer(RenderLayer.getText(sprite.getAtlasId()));
+        vertexConsumer2.vertex(matrix4f2, -1.0F, 1.0F, -0.1F).color(255, 255, 255, 255).texture(g, h).light(15728880);
+        vertexConsumer2.vertex(matrix4f2, 1.0F, 1.0F, -0.1F).color(255, 255, 255, 255).texture(l, h).light(15728880);
+        vertexConsumer2.vertex(matrix4f2, 1.0F, -1.0F, -0.1F).color(255, 255, 255, 255).texture(l, m).light(15728880);
+        vertexConsumer2.vertex(matrix4f2, -1.0F, -1.0F, -0.1F).color(255, 255, 255, 255).texture(g, m).light(15728880);
+        context.getMatrices().pop();
     }
 
     private void setScale(float newScale, double mouseX, double mouseY) {
