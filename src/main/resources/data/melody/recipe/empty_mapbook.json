@@ -3,14 +3,14 @@
     "category": "misc",
     "ingredients": [
         {
-            "item": "minecraft:map"
+            "item": "minecraft:book"
         },
         {
-            "item": "minecraft:book"
+            "item": "minecraft:map"
         }
     ],
     "result": {
-        "count": 1,
-        "item": "melody:map_book"
+        "id": "melody:map_book",
+        "count": 1
     }
 }
