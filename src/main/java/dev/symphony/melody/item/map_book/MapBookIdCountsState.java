@@ -34,7 +34,7 @@ public final class MapBookIdCountsState extends PersistentState {
         return idCountsState;
     }
 
-    @NotNull
+    @Override @NotNull
     public NbtCompound writeNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup wrapperLookup) {
 
         for (Object2IntMap.Entry<String> entry : this.idCounts.object2IntEntrySet()) {

@@ -38,7 +38,7 @@ public final class MapBookItem extends NetworkSyncedItem {
         super(settings);
     }
 
-    @NotNull
+    @Override @NotNull
     public ActionResult useOnBlock(@NotNull ItemUsageContext context) {
         BlockState blockState = context.getWorld().getBlockState(context.getBlockPos());
 
@@ -57,7 +57,7 @@ public final class MapBookItem extends NetworkSyncedItem {
         }
     }
 
-    @NotNull
+    @Override @NotNull
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if (world != null && !world.isClient()) {
             ServerPlayerEntity player = (ServerPlayerEntity)user;
@@ -95,6 +95,7 @@ public final class MapBookItem extends NetworkSyncedItem {
 
     }
 
+    @Override
     public void inventoryTick(@Nullable ItemStack stack, @Nullable World world, @Nullable Entity entity, int slot, boolean selected) {
         if (world != null && !world.isClient()) {
             if (stack != null && entity instanceof PlayerEntity) {
@@ -221,7 +222,7 @@ public final class MapBookItem extends NetworkSyncedItem {
         }
     }
 
-    @NotNull
+    @Override @NotNull
     public Text getName(@Nullable ItemStack stack) {
         if (stack != null && this.getMapBookId(stack) == -1) {
             if (stack.contains(ModItems.MAP_BOOK_ADDITIONS)) {

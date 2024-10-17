@@ -24,6 +24,7 @@ public final class MapTile implements Drawable {
         this.client = client;
     }
 
+    @Override
     public void render(@NotNull DrawContext context, int mouseX, int mouseY, float delta) {
         float mapScale = (float)(1 << this.mapState.scale);
         float offset = (float)64 * mapScale;

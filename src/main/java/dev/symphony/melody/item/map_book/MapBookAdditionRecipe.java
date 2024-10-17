@@ -21,11 +21,12 @@ public final class MapBookAdditionRecipe extends SpecialCraftingRecipe {
         super(craftingRecipeCategory);
     }
 
+    @Override
     public boolean matches(CraftingRecipeInput craftingRecipeInput, @NotNull World world) {
         return this.getResult(craftingRecipeInput, world) != null;
     }
 
-    @NotNull
+    @Override @NotNull
     public ItemStack craft(CraftingRecipeInput craftingRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup) {
         AdditionResult result = this.getResult(craftingRecipeInput, null);
         if (result != null) {
@@ -77,11 +78,12 @@ public final class MapBookAdditionRecipe extends SpecialCraftingRecipe {
         return new AdditionResult(mapBook, maps);
     }
 
+    @Override
     public boolean fits(int width, int height) {
         return width * height >= 2;
     }
 
-    @NotNull
+    @Override @NotNull
     public RecipeSerializer<MapBookAdditionRecipe> getSerializer() {
         return ModRecipes.MAP_BOOK_ADDITION_SERIALIZER;
     }

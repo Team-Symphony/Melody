@@ -28,7 +28,7 @@ public final class MapBookState extends PersistentState {
         this.markDirty();
     }
 
-    @NotNull
+    @Override @NotNull
     public NbtCompound writeNbt(@NotNull NbtCompound nbt, RegistryWrapper.WrapperLookup lookup) {
         if (!this.mapIDs.isEmpty()) {
             nbt.putIntArray("mapIDs", this.mapIDs);

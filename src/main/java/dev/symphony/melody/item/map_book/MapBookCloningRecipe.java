@@ -19,11 +19,12 @@ public final class MapBookCloningRecipe extends SpecialCraftingRecipe {
         super(craftingRecipeCategory);
     }
 
+    @Override
     public boolean matches(CraftingRecipeInput craftingRecipeInput, @NotNull World world) {
         return this.getResult(craftingRecipeInput) != null;
     }
 
-    @NotNull
+    @Override @NotNull
     public ItemStack craft(CraftingRecipeInput craftingRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup) {
         ItemStack itemStack = this.getResult(craftingRecipeInput);
         if (itemStack != null && !itemStack.isEmpty()) {
@@ -90,11 +91,12 @@ public final class MapBookCloningRecipe extends SpecialCraftingRecipe {
         return result;
     }
 
+    @Override
     public boolean fits(int width, int height) {
         return width * height >= 2;
     }
 
-    @NotNull
+    @Override @NotNull
     public RecipeSerializer<MapBookCloningRecipe> getSerializer() {
         return ModRecipes.MAP_BOOK_CLONING_SERIALIZER;
     }
