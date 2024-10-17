@@ -1,5 +1,6 @@
 package dev.symphony.melody.mixin.map_book;
 
+import dev.symphony.melody.config.MelodyConfig;
 import dev.symphony.melody.item.ModItems;
 import dev.symphony.melody.item.map_book.MapBookItem;
 import net.minecraft.component.DataComponentTypes;
@@ -29,8 +30,10 @@ public abstract class CartographyRecipesMixin extends ScreenHandler {
         super(type, syncId);
     }
 
-    @Inject(at = @At("HEAD"), method = "method_17382")
+    @Inject(at = @At("HEAD"), method = "method_17382", cancellable = true)
     private void updateResult(ItemStack map, ItemStack item, ItemStack oldResult, World world, BlockPos pos, CallbackInfo ci) {
+        if (!MelodyConfig.mapBook) return;
+
         if (map.isOf(Items.BOOK) && item.isOf(Items.MAP)) {
             resultInventory.setStack(2, new ItemStack(ModItems.MAP_BOOK, 1));
             sendContentUpdates();
@@ -39,6 +42,15 @@ public abstract class CartographyRecipesMixin extends ScreenHandler {
             ((MapBookItem)map.getItem()).setAdditions(map, List.of(item.get(DataComponentTypes.MAP_ID).id()));
             resultInventory.setStack(2, newItem);
             sendContentUpdates();
+        } else if (map.isOf(ModItems.MAP_BOOK) && item.isOf(ModItems.MAP_BOOK) && ModItems.MAP_BOOK.getMapBookId(map) != -1 && ModItems.MAP_BOOK.getMapBookId(item) == -1) {
+            resultInventory.setStack(2, map.copyWithCount(2));
+        } else {
+            resultInventory.removeStack(2);
+        }
+
+        //vanillas code will interpret the map book as a map and cause issues (like allowing map books to be cloned with empty maps)
+        if (map.isOf(ModItems.MAP_BOOK)) {
+            ci.cancel();
         }
     }
 }
