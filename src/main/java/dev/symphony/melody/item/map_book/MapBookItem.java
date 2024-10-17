@@ -278,6 +278,14 @@ public final class MapBookItem extends NetworkSyncedItem {
     }
 
     @Override
+    public void onCraftByPlayer(ItemStack stack, World world, PlayerEntity player) {
+        super.onCraftByPlayer(stack, world, player);
+        if (!world.isClient) {
+            mapBookSync((ServerPlayerEntity)player, stack);
+        }
+    }
+
+    @Override
     public void onCraft(ItemStack stack, World world) {
         if (!world.isClient) {
             applyAdditions(stack, (ServerWorld)world);
