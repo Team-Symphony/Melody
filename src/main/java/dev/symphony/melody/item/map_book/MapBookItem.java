@@ -100,7 +100,7 @@ public final class MapBookItem extends NetworkSyncedItem {
         if (world != null && !world.isClient()) {
             if (stack != null && entity instanceof PlayerEntity) {
                 if (selected || ((PlayerEntity)entity).getOffHandStack().equals(stack)) {
-                    this.applyAdditions(stack, (ServerWorld)world);
+                    //this.applyAdditions(stack, (ServerWorld)world);
 
                     for (MapStateData mapStateData : this.getMapStates(stack, entity.getWorld())) {
                         mapStateData.mapState().update((PlayerEntity) entity, stack);
@@ -274,6 +274,13 @@ public final class MapBookItem extends NetworkSyncedItem {
             for (int id : additions) {
                 state.addMapID(id);
             }
+        }
+    }
+
+    @Override
+    public void onCraft(ItemStack stack, World world) {
+        if (!world.isClient) {
+            applyAdditions(stack, (ServerWorld)world);
         }
     }
 
