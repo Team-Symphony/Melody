@@ -3,6 +3,7 @@
   "package": "dev.symphony.melody.mixin.client",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "map_book.CartographyTableScreenMixin",
     "map_book.HeldMapBookRenderingMixin",
     "map_book.MapPositionRequestMixin"
   ],

@@ -258,7 +258,7 @@ public final class MapBookItem extends NetworkSyncedItem {
         }
     }
 
-    public void setAdditions(@NotNull ItemStack stack, @NotNull ArrayList<Integer> additions) {
+    public void setAdditions(@NotNull ItemStack stack, @NotNull List<Integer> additions) {
         stack.set(ModItems.MAP_BOOK_ADDITIONS, new MapBookAdditionsComponent(additions));
     }
 
