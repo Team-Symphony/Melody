@@ -65,6 +65,8 @@ public abstract class CartographyRecipesMixin extends ScreenHandler {
             ci.cancel();
         }
     }
+
+    //TODO: add to quickMove to allow shift clicking map books etc into the cartography table
 }
 
 
