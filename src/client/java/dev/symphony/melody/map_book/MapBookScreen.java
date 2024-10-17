@@ -48,6 +48,7 @@ public final class MapBookScreen extends Screen {
         return this.scale;
     }
 
+    @Override
     protected void init() {
         if (this.client == null || this.client.world == null) {
             return;
@@ -68,12 +69,14 @@ public final class MapBookScreen extends Screen {
         this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (widget) -> close()).dimensions(this.width / 2 - 100, this.height / 4 + 144, 200, 20).build());
     }
 
+    @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
         this.x += deltaX;
         this.y += deltaY;
         return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
     }
 
+    @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         if (verticalAmount != 0.0) {
             this.targetScale = this.zoom(this.scale, -((float)verticalAmount), 5.0F);
@@ -82,6 +85,7 @@ public final class MapBookScreen extends Screen {
         return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
     }
 
+    @Override
     public void render(@Nullable DrawContext context, int mouseX, int mouseY, float delta) {
         if (context != null) {
             if (this.scale != this.targetScale) {
@@ -98,6 +102,11 @@ public final class MapBookScreen extends Screen {
             }
 
         }
+    }
+
+    @Override
+    public boolean shouldPause() {
+        return false;
     }
 
     private void renderPlayerIcon(DrawContext context, float x, float z, float rotation) {
