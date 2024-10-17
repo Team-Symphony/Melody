@@ -50,11 +50,11 @@ public final class MapBookAdditionRecipe extends SpecialCraftingRecipe {
                     return null;
                 }
 
-                int id = itemStack.getOrDefault(DataComponentTypes.MAP_ID, new MapIdComponent(-1)).id();
-                if (id == -1 || maps.contains(id)) {
+                MapIdComponent mapId = itemStack.get(DataComponentTypes.MAP_ID);
+                if (mapId == null) {
                     return null;
                 }
-                maps.add(id);
+                maps.add(mapId.id());
             } else {
                 if (mapBook != null) {
                     return null;
@@ -63,16 +63,12 @@ public final class MapBookAdditionRecipe extends SpecialCraftingRecipe {
                 mapBook = itemStack;
             }
         }
-
         if (mapBook == null || maps.isEmpty()) {
             return null;
         }
-        if (world != null) {
-            for (MapStateData mapStateData : ModItems.MAP_BOOK.getMapStates(mapBook, world)) {
-                if (maps.contains(mapStateData.id().id())) {
-                    return null;
-                }
-            }
+
+        if (world != null && ModItems.MAP_BOOK.hasInvalidAdditions(mapBook, world, maps)) {
+            return null;
         }
 
         return new AdditionResult(mapBook, maps);

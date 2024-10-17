@@ -4,6 +4,7 @@ import dev.symphony.melody.config.MelodyConfig;
 import dev.symphony.melody.item.ModItems;
 import dev.symphony.melody.item.map_book.MapBookItem;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.MapIdComponent;
 import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -20,6 +21,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(CartographyTableScreenHandler.class)
@@ -38,9 +40,19 @@ public abstract class CartographyRecipesMixin extends ScreenHandler {
             resultInventory.setStack(2, new ItemStack(ModItems.MAP_BOOK, 1));
             sendContentUpdates();
         } else if (map.isOf(ModItems.MAP_BOOK) && item.isOf(Items.FILLED_MAP)) {
-            ItemStack newItem = map.copy();
-            ((MapBookItem)newItem.getItem()).setAdditions(newItem, List.of(item.get(DataComponentTypes.MAP_ID).id()));
-            resultInventory.setStack(2, newItem);
+            List<Integer> additions = new ArrayList<>();
+            MapIdComponent mapIdComponent = item.get(DataComponentTypes.MAP_ID);
+            if (mapIdComponent != null) {
+                additions.add(mapIdComponent.id());
+            }
+
+            if (ModItems.MAP_BOOK.hasInvalidAdditions(map, world, additions)) {
+                resultInventory.removeStack(2);
+            } else {
+                ItemStack newItem = map.copy();
+                ((MapBookItem) newItem.getItem()).setAdditions(newItem, additions);
+                resultInventory.setStack(2, newItem);
+            }
             sendContentUpdates();
         } else if (map.isOf(ModItems.MAP_BOOK) && item.isOf(ModItems.MAP_BOOK) && ModItems.MAP_BOOK.getMapBookId(map) != -1 && ModItems.MAP_BOOK.getMapBookId(item) == -1) {
             resultInventory.setStack(2, map.copyWithCount(2));

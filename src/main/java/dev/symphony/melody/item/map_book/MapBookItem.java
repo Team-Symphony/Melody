@@ -121,13 +121,7 @@ public final class MapBookItem extends NetworkSyncedItem {
     @NotNull
     public ArrayList<MapStateData> getMapStates(@NotNull ItemStack stack, @NotNull World world) {
         ArrayList<MapStateData> list = new ArrayList<>();
-
-        MapBookState mapBookState = null;
-        if (world.isClient) {
-            mapBookState = MapBookStateManager.INSTANCE.getClientMapBookState(this.getMapBookId(stack));
-        } else if (world.getServer() != null){
-            mapBookState = MapBookStateManager.INSTANCE.getMapBookState(world.getServer(), this.getMapBookId(stack));
-        }
+        MapBookState mapBookState = getMapBookState(stack, world);
 
         if (mapBookState != null) {
             for (Integer i : mapBookState.getMapIDs()) {
@@ -139,6 +133,17 @@ public final class MapBookItem extends NetworkSyncedItem {
 
         }
         return list;
+    }
+
+    @Nullable
+    private MapBookState getMapBookState(@NotNull ItemStack stack, @NotNull World world) {
+        int id = getMapBookId(stack);
+        if (world.isClient) {
+            return MapBookStateManager.INSTANCE.getClientMapBookState(id);
+        } else if (world.getServer() != null){
+            return MapBookStateManager.INSTANCE.getMapBookState(world.getServer(), id);
+        }
+        return null;
     }
 
     @Nullable
@@ -267,6 +272,7 @@ public final class MapBookItem extends NetworkSyncedItem {
         if (additionsComponent == null) return;
         stack.remove(ModItems.MAP_BOOK_ADDITIONS);
 
+        //TODO: replace maps in the same location
         List<Integer> additions = additionsComponent.additions();
         if (!additions.isEmpty()) {
             MapBookState state = this.getOrCreateMapBookState(stack, world.getServer());
@@ -275,6 +281,28 @@ public final class MapBookItem extends NetworkSyncedItem {
                 state.addMapID(id);
             }
         }
+    }
+
+    public boolean hasInvalidAdditions(@NotNull ItemStack stack, @NotNull World world, List<Integer> additions) {
+        MapBookState mapBookState = getMapBookState(stack, world);
+
+        for (Integer i : additions) {
+            if (mapBookState != null && mapBookState.getMapIDs().contains(i)) {
+                return true;
+            }
+
+            boolean duplicate = false;
+            for (Integer j : additions) {
+                if (Objects.equals(i, j)) {
+                    if (duplicate) return true;
+                    duplicate = true;
+                    }
+                //} else {
+                //    //TODO: ensure no two additions are the same location
+                //}
+            }
+        }
+        return false;
     }
 
     @Override
