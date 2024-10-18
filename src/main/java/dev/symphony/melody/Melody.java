@@ -37,13 +37,13 @@ public class Melody implements ModInitializer {
 
 		// gay stuff (registry)
 		ModItemGroups.registerItemGroups();
-		ModItems.registerModItems();
+		ModItems.registerItems();
+		ModRecipes.registerRecipes();
 
-		ModRecipes.register();
-
+		// payload registry
+		LOGGER.info("Registering Payloads for: " + MOD_ID);
 		MapBookOpenPayload.register();
 		MapBookSyncPayload.register();
-
 		MapPositionPayload.register();
 		MapPositionRequestPayload.register();
 	}

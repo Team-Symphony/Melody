@@ -8,6 +8,6 @@ public class MelodyClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		ClientSyncHandler.init();
 
-		ModModelPredicates.register();
+		ModModelPredicates.registerModelPredicates();
 	}
 }

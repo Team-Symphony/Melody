@@ -39,7 +39,7 @@ public class ModItems {
         return Registry.register(Registries.DATA_COMPONENT_TYPE, id, builderOperator.apply(ComponentType.builder()).build());
     }
 
-    public static void registerModItems(){
-        Melody.LOGGER.info("Registering Mod Items for" + Melody.MOD_ID);
+    public static void registerItems() {
+        Melody.LOGGER.info("Registering Items for: " + Melody.MOD_ID);
     }
 }

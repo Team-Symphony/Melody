@@ -26,7 +26,7 @@ public class ModItemGroups {
 
                     }).build());
 
-    public static void registerItemGroups(){
-        Melody.LOGGER.info("Registering Item Groups for:" + Melody.MOD_ID);
+    public static void registerItemGroups() {
+        Melody.LOGGER.info("Registering Item Groups for: " + Melody.MOD_ID);
     }
 }
