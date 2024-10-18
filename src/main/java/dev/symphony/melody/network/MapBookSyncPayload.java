@@ -1,5 +1,6 @@
 package dev.symphony.melody.network;
 
+import dev.symphony.melody.Melody;
 import dev.symphony.melody.item.map_book.MapBookItem;
 import dev.symphony.melody.item.map_book.MapBookState;
 import dev.symphony.melody.item.map_book.MapBookStateManager;
@@ -10,11 +11,10 @@ import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 public record MapBookSyncPayload(int bookID, int[] mapIDs) implements CustomPayload {
-    public static final Id<MapBookSyncPayload> PACKET_ID = new Id<>(Identifier.of("melody", "map_book_sync"));
+    public static final Id<MapBookSyncPayload> PACKET_ID = new Id<>(Melody.id("map_book_sync"));
 
     public static final PacketCodec<RegistryByteBuf, MapBookSyncPayload> PACKET_CODEC = PacketCodec.tuple(
             PacketCodecs.VAR_INT,

@@ -1,5 +1,6 @@
 package dev.symphony.melody.network;
 
+import dev.symphony.melody.Melody;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.component.type.MapIdComponent;
@@ -7,10 +8,9 @@ import net.minecraft.item.map.MapState;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
 
 public record MapPositionRequestPayload(MapIdComponent mapIdComponent) implements CustomPayload {
-    public static final Id<MapPositionRequestPayload> PACKET_ID = new Id<>(Identifier.of("melody", "map_position_request"));
+    public static final Id<MapPositionRequestPayload> PACKET_ID = new Id<>(Melody.id("map_position_request"));
 
     public static final PacketCodec<RegistryByteBuf, MapPositionRequestPayload> PACKET_CODEC = PacketCodec.tuple(
             MapIdComponent.PACKET_CODEC,

@@ -6,7 +6,7 @@
   "overrides": [
     {
       "predicate": {
-        "empty": 1
+        "melody:empty": 1
       },
       "model": "melody:item/map_book_empty"
     }

@@ -22,8 +22,8 @@ public class Melody implements ModInitializer {
 	public static final String MOD_ID = "melody";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	public static Identifier id (String path) {
-		return Identifier.of(Melody.MOD_ID, path);
+	public static Identifier id(String path) {
+		return Identifier.of(MOD_ID, path);
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class Melody implements ModInitializer {
 		MidnightConfig.init(MOD_ID, MelodyConfig.class);
 
 		MelodyConfigCondition.init();
-		ResourceConditionType<MelodyConfigCondition> conditionType = ResourceConditionType.create(Identifier.of(Melody.MOD_ID, "config"), MelodyConfigCondition.CODEC);
+		ResourceConditionType<MelodyConfigCondition> conditionType = ResourceConditionType.create(Melody.id("config"), MelodyConfigCondition.CODEC);
 		ResourceConditions.register(conditionType);
 
 		// gay stuff (registry)

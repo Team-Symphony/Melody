@@ -8,12 +8,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
 import java.util.List;
 
 public class ModItemGroups {
-    public static final ItemGroup MELODY_ITEM_GROUP = Registry.register(Registries.ITEM_GROUP, Identifier.of(Melody.MOD_ID, "melody_item_group"),
+    public static final ItemGroup MELODY_ITEM_GROUP = Registry.register(Registries.ITEM_GROUP, Melody.id("melody_item_group"),
             FabricItemGroup.builder().icon(() -> {
                 ItemStack itemStack = new ItemStack(ModItems.MAP_BOOK);
                 ((MapBookItem) itemStack.getItem()).setAdditions(itemStack, List.of(0));

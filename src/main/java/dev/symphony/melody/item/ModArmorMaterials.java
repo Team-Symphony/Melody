@@ -9,7 +9,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
 import java.util.EnumMap;
@@ -26,9 +25,9 @@ public class ModArmorMaterials {
             // This i:15 is enchantability
             }), 15, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, () -> Ingredient.ofItems(Items.NETHERITE_INGOT),
                     // f:3 and g:0.1f are toughness and knockback resistance respectively
-                    List.of(new ArmorMaterial.Layer(Identifier.of(Melody.MOD_ID, "netherite_horse_armor_material"))), 3, 0.1f));
+                    List.of(new ArmorMaterial.Layer(Melody.id("netherite_horse_armor_material"))), 3, 0.1f));
 
     public static RegistryEntry<ArmorMaterial> registerArmorMaterial(String name, Supplier<ArmorMaterial> material){
-        return Registry.registerReference(Registries.ARMOR_MATERIAL, Identifier.of(Melody.MOD_ID, name), material.get());
+        return Registry.registerReference(Registries.ARMOR_MATERIAL, Melody.id(name), material.get());
     }
 }
