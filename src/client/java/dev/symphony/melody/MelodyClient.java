@@ -7,5 +7,7 @@ public class MelodyClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		ClientSyncHandler.init();
+
+		ModModelPredicates.register();
 	}
 }
