@@ -125,7 +125,7 @@ public final class MapBookItem extends NetworkSyncedItem {
 
         if (mapBookState != null) {
             for (Integer i : mapBookState.getMapIDs()) {
-                MapState mapState = FilledMapItem.getMapState(new MapIdComponent(i), world);
+                MapState mapState = world.getMapState(new MapIdComponent(i));
                 if (mapState != null) {
                     list.add(new MapStateData(new MapIdComponent(i), mapState));
                 }
@@ -292,12 +292,21 @@ public final class MapBookItem extends NetworkSyncedItem {
                 return true;
             }
 
+            MapState mapA = world.getMapState(new MapIdComponent(additionA));
+            if (mapA == null) {
+                return true;
+            }
+
             for (int j = i+1; j < additions.size(); j++) {
                 int additionB = additions.get(j);
                 if (additionA == additionB) {
                     return true;
                 }
-                //TODO: ensure no two additions are the same location
+
+                MapState mapB = world.getMapState(new MapIdComponent(additionB));
+                if (mapB == null || (mapA.scale == mapB.scale && mapA.centerX == mapB.centerX && mapA.centerZ == mapB.centerZ)) {
+                    return true;
+                }
             }
         }
 
