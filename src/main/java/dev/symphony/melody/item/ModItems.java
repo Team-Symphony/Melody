@@ -25,7 +25,7 @@ public class ModItems {
     // FEATURE: Map Book
     // AUTHORS: Nettakrim
     // ARTISTS: Eleanor
-    public static final MapBookItem MAP_BOOK = (MapBookItem)registerItem("map_book", new MapBookItem(new Item.Settings().maxCount(1)));
+    public static final MapBookItem MAP_BOOK = (MapBookItem)registerItem("map_book", new MapBookItem(new Item.Settings().maxCount(16)));
     public static final ComponentType<MapBookAdditionsComponent> MAP_BOOK_ADDITIONS = registerComponent("melody_map_book_additions", (builder) -> builder.codec(MapBookAdditionsComponent.CODEC).packetCodec(MapBookAdditionsComponent.PACKET_CODEC).cache());
 
 
