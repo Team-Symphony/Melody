@@ -68,6 +68,4 @@ public record MelodyConfigCondition(String config_name) implements ResourceCondi
     public boolean test(@Nullable RegistryWrapper.WrapperLookup registryLookup) {
         return resourceMap.getOrDefault(config_name, false);
     }
-
-
 }
