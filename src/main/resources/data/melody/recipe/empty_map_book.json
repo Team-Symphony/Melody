@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+        {
+            "item": "minecraft:book"
+        },
+        {
+            "item": "minecraft:map"
+        }
+    ],
+    "result": {
+        "id": "melody:map_book",
+        "count": 1
+    },
+    "fabric:load_conditions": [
+        {
+            "condition": "melody:config",
+            "config_name": "item/map_book"
+        }
+    ]
+}
