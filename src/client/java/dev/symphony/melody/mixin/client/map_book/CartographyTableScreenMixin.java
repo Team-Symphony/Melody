@@ -19,6 +19,7 @@ public class CartographyTableScreenMixin {
         if (!(item0.getItem() instanceof MapBookItem mapBookItem)) return original;
 
         MinecraftClient client = MinecraftClient.getInstance();
+        if (client.world == null || client.player == null) return original;
         MapStateData mapStateData = mapBookItem.getNearestMap(item0, client.world, client.player.getPos());
 
         if (mapStateData == null) return null;
