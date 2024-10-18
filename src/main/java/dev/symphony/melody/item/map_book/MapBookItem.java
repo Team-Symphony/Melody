@@ -272,12 +272,19 @@ public final class MapBookItem extends NetworkSyncedItem {
         if (additionsComponent == null) return;
         stack.remove(ModItems.MAP_BOOK_ADDITIONS);
 
-        //TODO: replace maps in the same location
         List<Integer> additions = additionsComponent.additions();
         if (!additions.isEmpty()) {
             MapBookState state = this.getOrCreateMapBookState(stack, world.getServer());
 
             for (int id : additions) {
+                MapState newState = world.getMapState(new MapIdComponent(id));
+                if (newState == null) continue;
+
+                state.getMapIDs().removeIf((existingID) -> {
+                    MapState existingState = world.getMapState(new MapIdComponent(existingID));
+                    return existingState == null || mapsAreSameLocation(newState, existingState);
+                });
+
                 state.addMapID(id);
             }
         }
@@ -304,13 +311,17 @@ public final class MapBookItem extends NetworkSyncedItem {
                 }
 
                 MapState mapB = world.getMapState(new MapIdComponent(additionB));
-                if (mapB == null || (mapA.scale == mapB.scale && mapA.centerX == mapB.centerX && mapA.centerZ == mapB.centerZ)) {
+                if (mapB == null || mapsAreSameLocation(mapA, mapB)) {
                     return true;
                 }
             }
         }
 
         return false;
+    }
+
+    private boolean mapsAreSameLocation(@NotNull MapState mapA, @NotNull MapState mapB) {
+        return mapA.scale == mapB.scale && mapA.centerX == mapB.centerX && mapA.centerZ == mapB.centerZ;
     }
 
     @Override
