@@ -54,7 +54,7 @@ public abstract class CartographyRecipesMixin extends ScreenHandler {
                 resultInventory.setStack(2, newItem);
             }
             sendContentUpdates();
-        } else if (map.isOf(ModItems.MAP_BOOK) && item.isOf(ModItems.MAP_BOOK) && ModItems.MAP_BOOK.getMapBookId(map) != -1 && ModItems.MAP_BOOK.getMapBookId(item) == -1) {
+        } else if (map.isOf(ModItems.MAP_BOOK) && item.isOf(ModItems.MAP_BOOK) && ModItems.MAP_BOOK.hasMapBookId(map) && !ModItems.MAP_BOOK.hasMapBookId(item)) {
             resultInventory.setStack(2, map.copyWithCount(2));
         } else {
             resultInventory.removeStack(2);

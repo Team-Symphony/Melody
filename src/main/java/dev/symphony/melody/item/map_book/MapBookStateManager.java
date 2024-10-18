@@ -34,24 +34,20 @@ public final class MapBookStateManager {
 
     @Nullable
     public MapBookState getMapBookState(@NotNull MinecraftServer server, int id) {
-        return id == -1 ? null : server.getOverworld().getPersistentStateManager().get(this.getPersistentStateType(), this.getMapBookName(id));
+        return server.getOverworld().getPersistentStateManager().get(this.getPersistentStateType(), this.getMapBookName(id));
     }
 
-    public void putMapBookState(@NotNull MinecraftServer server, int id, @Nullable MapBookState state) {
-        if (id != -1) {
-            server.getOverworld().getPersistentStateManager().set(this.getMapBookName(id), state);
-        }
+    public void putMapBookState(@NotNull MinecraftServer server, int id, @NotNull MapBookState state) {
+        server.getOverworld().getPersistentStateManager().set(this.getMapBookName(id), state);
     }
 
     @Nullable
     public MapBookState getClientMapBookState(int id) {
-        return id == -1 ? null : clientMapBooks.get(this.getMapBookName(id));
+        return clientMapBooks.get(this.getMapBookName(id));
     }
 
-    public void putClientMapBookState(int id, @Nullable MapBookState state) {
-        if (id != -1 && state != null) {
-            clientMapBooks.put(this.getMapBookName(id), state);
-        }
+    public void putClientMapBookState(int id, @NotNull MapBookState state) {
+        clientMapBooks.put(this.getMapBookName(id), state);
     }
 
     @NotNull

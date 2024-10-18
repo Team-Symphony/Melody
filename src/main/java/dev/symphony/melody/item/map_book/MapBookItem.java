@@ -76,7 +76,7 @@ public final class MapBookItem extends NetworkSyncedItem {
             }
             this.sendMapUpdates(player, item);
             mapBookSync(player, item);
-            if (openMap && this.getMapBookId(item) != -1) {
+            if (openMap && this.hasMapBookId(item)) {
                 mapBookOpen(player, item);
             }
         }
@@ -137,7 +137,9 @@ public final class MapBookItem extends NetworkSyncedItem {
 
     @Nullable
     private MapBookState getMapBookState(@NotNull ItemStack stack, @NotNull World world) {
-        int id = getMapBookId(stack);
+        Integer id = getMapBookId(stack);
+        if (id == null) return null;
+
         if (world.isClient) {
             return MapBookStateManager.INSTANCE.getClientMapBookState(id);
         } else if (world.getServer() != null){
@@ -184,8 +186,13 @@ public final class MapBookItem extends NetworkSyncedItem {
         return Math.max(Math.abs(pos.x - (double)mapState.centerX), Math.abs(pos.z - (double)mapState.centerZ)) - (double)(64 * (1 << mapState.scale));
     }
 
-    public int getMapBookId(@NotNull ItemStack stack) {
-        return stack.getOrDefault(DataComponentTypes.MAP_ID, new MapIdComponent(-1)).id();
+    public boolean hasMapBookId(@NotNull ItemStack stack) {
+        return stack.contains(DataComponentTypes.MAP_ID);
+    }
+
+    public Integer getMapBookId(@NotNull ItemStack stack) {
+        MapIdComponent mapIdComponent = stack.getOrDefault(DataComponentTypes.MAP_ID, null);
+        return mapIdComponent == null ? null : mapIdComponent.id();
     }
 
     private int allocateMapBookId(MinecraftServer server) {
@@ -206,7 +213,8 @@ public final class MapBookItem extends NetworkSyncedItem {
     }
 
     private MapBookState getOrCreateMapBookState(ItemStack stack, MinecraftServer server) {
-        MapBookState state = MapBookStateManager.INSTANCE.getMapBookState(server, this.getMapBookId(stack));
+        Integer id = this.getMapBookId(stack);
+        MapBookState state = id == null ? null : MapBookStateManager.INSTANCE.getMapBookState(server, id);
         if (state != null) {
             return state;
         } else {
@@ -229,7 +237,7 @@ public final class MapBookItem extends NetworkSyncedItem {
 
     @Override @NotNull
     public Text getName(@Nullable ItemStack stack) {
-        if (stack != null && this.getMapBookId(stack) == -1) {
+        if (stack != null && !this.hasMapBookId(stack)) {
             if (stack.contains(ModItems.MAP_BOOK_ADDITIONS)) {
                 return Text.translatable("item.melody.map_book_new");
             } else {
@@ -243,10 +251,9 @@ public final class MapBookItem extends NetworkSyncedItem {
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if (stack != null) {
-            int id = this.getMapBookId(stack);
-
             int mapsCount = stack.getOrDefault(ModItems.MAP_BOOK_ADDITIONS, MapBookAdditionsComponent.DEFAULT).additions().size();
-            if (id != -1) {
+            Integer id = this.getMapBookId(stack);
+            if (id != null) {
                 //append tooltip is client-based, so its safe to get the client MapBookState
                 MapBookState mapBookState = MapBookStateManager.INSTANCE.getClientMapBookState(id);
 
@@ -344,6 +351,9 @@ public final class MapBookItem extends NetworkSyncedItem {
     }
 
     public void mapBookSync(@NotNull ServerPlayerEntity player, @NotNull ItemStack itemStack) {
-        ServerPlayNetworking.send(player, MapBookSyncPayload.of(player, itemStack));
+        MapBookSyncPayload payload = MapBookSyncPayload.of(player, itemStack);
+        if (payload != null) {
+            ServerPlayNetworking.send(player, payload);
+        }
     }
 }

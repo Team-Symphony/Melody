@@ -11,6 +11,7 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.Nullable;
 
 public record MapBookSyncPayload(int bookID, int[] mapIDs) implements CustomPayload {
     public static final Id<MapBookSyncPayload> PACKET_ID = new Id<>(Identifier.of("melody", "map_book_sync"));
@@ -32,13 +33,15 @@ public record MapBookSyncPayload(int bookID, int[] mapIDs) implements CustomPayl
         PayloadTypeRegistry.playS2C().register(PACKET_ID, PACKET_CODEC);
     }
 
+    @Nullable
     public static MapBookSyncPayload of(ServerPlayerEntity player, ItemStack itemStack) {
-        int bookId = ((MapBookItem)itemStack.getItem()).getMapBookId(itemStack);
+        Integer bookId = ((MapBookItem)itemStack.getItem()).getMapBookId(itemStack);
+        if (bookId == null) return null;
+
         MapBookState mapBookState = MapBookStateManager.INSTANCE.getMapBookState(player.server, bookId);
-        if (mapBookState == null) {
-            return new MapBookSyncPayload(-1, new int[0]);
-        } else {
+        if (mapBookState != null) {
             return new MapBookSyncPayload(bookId, mapBookState.getMapIDs().stream().mapToInt(i -> i).toArray());
         }
+        return null;
     }
 }
