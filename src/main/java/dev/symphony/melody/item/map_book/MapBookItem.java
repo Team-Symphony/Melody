@@ -286,22 +286,21 @@ public final class MapBookItem extends NetworkSyncedItem {
     public boolean hasInvalidAdditions(@NotNull ItemStack stack, @NotNull World world, List<Integer> additions) {
         MapBookState mapBookState = getMapBookState(stack, world);
 
-        for (Integer i : additions) {
-            if (mapBookState != null && mapBookState.getMapIDs().contains(i)) {
+        for (int i = 0; i < additions.size(); i++) {
+            int additionA = additions.get(i);
+            if (mapBookState != null && mapBookState.getMapIDs().contains(additionA)) {
                 return true;
             }
 
-            boolean duplicate = false;
-            for (Integer j : additions) {
-                if (Objects.equals(i, j)) {
-                    if (duplicate) return true;
-                    duplicate = true;
-                    }
-                //} else {
-                //    //TODO: ensure no two additions are the same location
-                //}
+            for (int j = i+1; j < additions.size(); j++) {
+                int additionB = additions.get(j);
+                if (additionA == additionB) {
+                    return true;
+                }
+                //TODO: ensure no two additions are the same location
             }
         }
+
         return false;
     }
 
