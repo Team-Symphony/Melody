@@ -30,7 +30,7 @@ public final class MapBookAdditionRecipe extends SpecialCraftingRecipe {
     public ItemStack craft(CraftingRecipeInput craftingRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup) {
         AdditionResult result = this.getResult(craftingRecipeInput, null);
         if (result != null) {
-            ItemStack item = result.mapBook().copy();
+            ItemStack item = result.mapBook().copyWithCount(1);
             ((MapBookItem)item.getItem()).setAdditions(item, result.maps());
             return item;
         } else {
@@ -44,6 +44,9 @@ public final class MapBookAdditionRecipe extends SpecialCraftingRecipe {
 
         for (ItemStack itemStack : craftingRecipeInput.getStacks()) {
             if (itemStack.isEmpty()) continue;
+
+            // due to applying the additions it gets confused when theres more than one item in the grid and ends up duplicating things
+            if (itemStack.getCount() > 1) return null;
 
             if (!itemStack.isOf(ModItems.MAP_BOOK)) {
                 if (!itemStack.isOf(Items.FILLED_MAP)) {
