@@ -49,7 +49,7 @@ public abstract class CartographyRecipesMixin extends ScreenHandler {
             if (ModItems.MAP_BOOK.hasInvalidAdditions(map, world, additions)) {
                 resultInventory.removeStack(2);
             } else {
-                ItemStack newItem = map.copy();
+                ItemStack newItem = map.copyWithCount(1);
                 ((MapBookItem) newItem.getItem()).setAdditions(newItem, additions);
                 resultInventory.setStack(2, newItem);
             }
