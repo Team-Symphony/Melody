@@ -7,7 +7,6 @@ import dev.symphony.melody.Melody;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.annotation.ElementType;
@@ -60,7 +59,7 @@ public record MelodyConfigCondition(String config_name) implements ResourceCondi
 
     @Override
     public ResourceConditionType<?> getType() {
-        return ResourceConditionType.create(Identifier.of(Melody.MOD_ID, "config"), CODEC);
+        return ResourceConditionType.create(Melody.id("config"), CODEC);
     }
 
 
@@ -68,6 +67,4 @@ public record MelodyConfigCondition(String config_name) implements ResourceCondi
     public boolean test(@Nullable RegistryWrapper.WrapperLookup registryLookup) {
         return resourceMap.getOrDefault(config_name, false);
     }
-
-
 }
