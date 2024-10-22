@@ -6,6 +6,8 @@
   "melody.midnightconfig.category.melody": "Melody",
 
   "melody.midnightconfig.category.transportation": "Transportation",
+  "melody.midnightconfig.vehiclesMoveThroughLeaves": "Rideable mobs can move through leaves when ridden",
+  "melody.midnightconfig.leafSpeedFactor": "Rideable mob speed percentage while inside leaves",
   "melody.midnightconfig.netheriteHorseArmor": "Netherite Horse Armor",
 
   "melody.midnightconfig.category.exploration": "Exploration",
