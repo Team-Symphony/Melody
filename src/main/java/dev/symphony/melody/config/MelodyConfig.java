@@ -7,5 +7,10 @@ public class MelodyConfig extends MidnightConfig {
 
     // Transportation
     public static final String TRANS = "transportation";
+    @Entry(category = TRANS) public static boolean vehiclesMoveThroughLeaves = true;
+    @Entry(category = TRANS, isSlider = true, min = 0f, max = 1f) public static float leafSpeedFactor = 0.85f;
     @MelodyConfigCondition.ResourceConfigName(config_name = "item/netherite_horse_armor") @Entry(category = TRANS) public static boolean netheriteHorseArmor = true;
+
+    public static final String EXPLORATION = "exploration";
+    @MelodyConfigCondition.ResourceConfigName(config_name = "item/map_book") @Entry(category = EXPLORATION) public static boolean mapBook = true;
 }

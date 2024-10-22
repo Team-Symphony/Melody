@@ -8,7 +8,15 @@
   "melody.midnightconfig.category.transportation": "Transportation",
   "melody.midnightconfig.netheriteHorseArmor": "Netherite Horse Armor",
 
+  "melody.midnightconfig.category.exploration": "Exploration",
+  "melody.midnightconfig.mapBook": "Map Book",
+
   "itemgroup.melody.melody_item_group": "Melody",
 
+  "item.melody.map_book": "Map Book",
+  "item.melody.map_book_empty": "Empty Map Book",
+  "item.melody.map_book_new": "New Map Book",
+  "item.melody.map_book_id": "Book: %s",
+  "item.melody.map_book_maps": "Maps: %s",
   "item.melody.netherite_horse_armor": "Netherite Horse Armor"
 }

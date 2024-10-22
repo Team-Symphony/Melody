@@ -1,11 +1,15 @@
 {
-	"required": true,
-	"package": "dev.symphony.melody.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "package": "dev.symphony.melody.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "map_book.CartographyRecipesMixin",
+    "map_book.CartographyRecipesSlot0Mixin",
+    "map_book.CartographyRecipesSlot1Mixin",
+    "map_book.MapStateMixin",
+    "transportation.VehiclesMoveThroughLeaves"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }
