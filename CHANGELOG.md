@@ -4,7 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## Known Issues
+
+#### General
+
+- Mod configs don't get synced between server and client, which can cause bugs depending on the difference in configurations.
+  - Current workaround: Have both client and server both always with the same configurations.
+
 ## [Unreleased]
+
+### Deprecated
+
+##### General
+
+- MidnightLib will be replaced by a different config lib
 
 ## [0.0.1-alpha+mc1.21] - 2024-10-23
 
