@@ -21,4 +21,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 #### Exploration
 
-- FEATURE: Map Book, craftable with an empty map and a book on a cartography table, in which you can add maps by adding the desired map and the mapbook on your inventory's crafting grid
+- FEATURE: Map Book, craftable with an empty map and a book on a cartography table, in which you can add maps by adding the desired map and the mapbook on your inventory's crafting grid or on the cartography table. They can be cloned just like normal maps and stack up to 16.
