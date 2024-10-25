@@ -2,8 +2,8 @@ package dev.symphony.melody.item;
 
 import dev.symphony.melody.Melody;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Items;
+import net.minecraft.item.equipment.ArmorMaterial;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
