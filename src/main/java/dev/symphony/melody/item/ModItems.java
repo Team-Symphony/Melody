@@ -6,6 +6,7 @@ import dev.symphony.melody.item.map_book.MapBookItem;
 import net.minecraft.component.ComponentType;
 import net.minecraft.item.AnimalArmorItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.equipment.ArmorMaterials;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -24,7 +25,7 @@ public class ModItems {
     public static final Item NETHERITE_HORSE_ARMOR = registerItem(
             // Uses custom armor material in order to change the protection from 11 to 15 (since horse armor takes the chestplate protection from the material)
             "netherite_horse_armor",
-            settings -> new AnimalArmorItem(ModArmorMaterials.NETHERITE_HORSE_ARMOR_MATERIAL, AnimalArmorItem.Type.EQUESTRIAN, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, false, settings),
+            settings -> new AnimalArmorItem(ArmorMaterials.NETHERITE, AnimalArmorItem.Type.EQUESTRIAN, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, false, settings),
             new Item.Settings().maxCount(1).fireproof()
     );
 
