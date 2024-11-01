@@ -6,7 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.symphony.melody.Melody;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.RegistryOps;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.annotation.ElementType;
@@ -62,9 +62,8 @@ public record MelodyConfigCondition(String config_name) implements ResourceCondi
         return ResourceConditionType.create(Melody.id("config"), CODEC);
     }
 
-
     @Override
-    public boolean test(@Nullable RegistryWrapper.WrapperLookup registryLookup) {
+    public boolean test(@Nullable RegistryOps.RegistryInfoGetter registryInfo) {
         return resourceMap.getOrDefault(config_name, false);
     }
 }
