@@ -12,18 +12,16 @@ import org.jetbrains.annotations.NotNull;
 public final class MapTile implements Drawable {
     @NotNull
     private final MapBookScreen screen;
-    private final MapIdComponent id;
     @NotNull
     private final MapState mapState;
     @NotNull
     private final MinecraftClient client;
 
-    private MapRenderState mapRenderState;
+    private final MapRenderState mapRenderState;
 
     public MapTile(@NotNull MapBookScreen screen, MapIdComponent id, @NotNull MapState mapState, @NotNull MinecraftClient client) {
         super();
         this.screen = screen;
-        this.id = id;
         this.mapState = mapState;
         this.client = client;
         this.mapRenderState = new MapRenderState();
