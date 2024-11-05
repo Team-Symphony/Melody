@@ -1,9 +1,11 @@
 package dev.symphony.melody;
 
+import dev.symphony.melody.block.ModBlocks;
 import dev.symphony.melody.config.MelodyConfigCondition;
 import dev.symphony.melody.item.ModItemGroups;
 import dev.symphony.melody.item.ModItems;
 import dev.symphony.melody.item.ModRecipes;
+import dev.symphony.melody.sound.ModSoundEvents;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 import dev.symphony.melody.network.MapBookOpenPayload;
@@ -38,7 +40,9 @@ public class Melody implements ModInitializer {
 		// gay stuff (registry)
 		ModItemGroups.registerItemGroups();
 		ModItems.registerItems();
+		ModBlocks.registerBlocks();
 		ModRecipes.registerRecipes();
+		ModSoundEvents.registerSoundEvents();
 
 		// payload registry
 		LOGGER.info("Registering Payloads for: " + MOD_ID);

@@ -9,5 +9,6 @@ public class MelodyClient implements ClientModInitializer {
 		ClientSyncHandler.init();
 
 		ModModelPredicates.registerModelPredicates();
+		ModEntityModelLayers.registerEntityModelLayers();
 	}
 }

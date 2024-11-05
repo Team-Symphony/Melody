@@ -3,6 +3,7 @@ package dev.symphony.melody.item;
 import dev.symphony.melody.Melody;
 import dev.symphony.melody.item.map_book.MapBookItem;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -22,6 +23,9 @@ public class ModItemGroups {
                     .entries((displayContext, entries) -> {
                         entries.add(ModItems.NETHERITE_HORSE_ARMOR);
                         entries.add(ModItems.MAP_BOOK);
+
+                        for (Item item : ModItems.SKULLS)
+                            entries.add(item);
 
                     }).build());
 

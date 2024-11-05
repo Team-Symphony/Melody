@@ -3,9 +3,13 @@
   "package": "dev.symphony.melody.mixin.client",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "accessor.SkullBlockEntityRendererAccessor",
     "map_book.CartographyTableScreenMixin",
     "map_book.HeldMapBookRenderingMixin",
-    "map_book.MapPositionRequestMixin"
+    "map_book.MapPositionRequestMixin",
+    "more_mob_heads.BuiltInModelItemRendererMixin",
+    "more_mob_heads.HeadFeatureRendererMixin",
+    "more_mob_heads.SkullBlockEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

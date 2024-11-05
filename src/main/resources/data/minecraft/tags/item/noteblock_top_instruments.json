@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "melody:blaze_head",
+    "melody:bogged_skull",
+    "melody:breeze_head",
+    "melody:drowned_head",
+    "melody:enderman_head",
+    "melody:evoker_head",
+    "melody:hoglin_head",
+    "melody:husk_head",
+    "melody:piglin_brute_head",
+    "melody:pillager_head",
+    "melody:stray_skull",
+    "melody:vindicator_head",
+    "melody:witch_head",
+    "melody:zoglin_head",
+    "melody:zombie_villager_head",
+    "melody:zombified_piglin_head"
+  ]
+}

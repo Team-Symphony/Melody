@@ -1,0 +1,146 @@
+{
+  "block.note_block.imitate.blaze": {
+    "sounds": [
+      {
+        "name": "entity.blaze.ambient",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.blaze.ambient"
+  },
+  "block.note_block.imitate.bogged": {
+    "sounds": [
+      {
+        "name": "entity.bogged.ambient",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.bogged.ambient"
+  },
+  "block.note_block.imitate.breeze": {
+    "sounds": [
+      {
+        "name": "entity.breeze.idle_ground",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.breeze.idle_ground"
+  },
+  "block.note_block.imitate.drowned": {
+    "sounds": [
+      {
+        "name": "entity.drowned.ambient",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.drowned.ambient"
+  },
+  "block.note_block.imitate.enderman": {
+    "sounds": [
+      {
+        "name": "entity.enderman.scream",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.enderman.scream"
+  },
+  "block.note_block.imitate.evoker": {
+    "sounds": [
+      {
+        "name": "entity.evoker.ambient",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.evoker.ambient"
+  },
+  "block.note_block.imitate.hoglin": {
+    "sounds": [
+      {
+        "name": "entity.hoglin.ambient",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.hoglin.ambient"
+  },
+  "block.note_block.imitate.husk": {
+    "sounds": [
+      {
+        "name": "entity.husk.ambient",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.husk.ambient"
+  },
+  "block.note_block.imitate.piglin_brute": {
+    "sounds": [
+      {
+        "name": "entity.piglin_brute.ambient",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.piglin_brute.ambient"
+  },
+  "block.note_block.imitate.pillager": {
+    "sounds": [
+      {
+        "name": "entity.pillager.ambient",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.pillager.ambient"
+  },
+  "block.note_block.imitate.stray": {
+    "sounds": [
+      {
+        "name": "entity.stray.ambient",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.stray.ambient"
+  },
+  "block.note_block.imitate.vindicator": {
+    "sounds": [
+      {
+        "name": "entity.vindicator.ambient",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.vindicator.ambient"
+  },
+  "block.note_block.imitate.witch": {
+    "sounds": [
+      {
+        "name": "entity.witch.ambient",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.witch.ambient"
+  },
+  "block.note_block.imitate.zoglin": {
+    "sounds": [
+      {
+        "name": "entity.zoglin.ambient",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.zoglin.ambient"
+  },
+  "block.note_block.imitate.zombie_villager": {
+    "sounds": [
+      {
+        "name": "entity.zombie_villager.ambient",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.zombie_villager.ambient"
+  },
+  "block.note_block.imitate.zombified_piglin": {
+    "sounds": [
+      {
+        "name": "entity.zombified_piglin.ambient",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.zombified_piglin.ambient"
+  }
+}
