@@ -1,5 +1,6 @@
 package dev.symphony.melody.mixin.transportation;
 
+import dev.symphony.melody.config.MelodyConfig;
 import net.minecraft.item.equipment.ArmorMaterials;
 import net.minecraft.item.equipment.EquipmentType;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,6 +13,6 @@ public interface ArmorMaterialsMixin {
     // Changes Netherite Horse Armor protection from vanilla value to a custom one
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void modifyNetheriteBodyProtection(CallbackInfo info) {
-        ArmorMaterials.NETHERITE.defense().put(EquipmentType.BODY, 15);
+        ArmorMaterials.NETHERITE.defense().put(EquipmentType.BODY, MelodyConfig.netheriteHorseArmorDefense);
     }
 }
