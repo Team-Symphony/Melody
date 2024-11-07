@@ -12,6 +12,8 @@ import dev.symphony.melody.network.MapPositionRequestPayload;
 import dev.symphony.melody.network.MapBookSyncPayload;
 
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.item.equipment.ArmorMaterials;
+import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +36,9 @@ public class Melody implements ModInitializer {
 		MelodyConfigCondition.init();
 		ResourceConditionType<MelodyConfigCondition> conditionType = ResourceConditionType.create(Melody.id("config"), MelodyConfigCondition.CODEC);
 		ResourceConditions.register(conditionType);
+
+		// Set Netherite Horse Armor Defense value
+		ArmorMaterials.NETHERITE.defense().put(EquipmentType.BODY, MelodyConfig.netheriteHorseArmorDefense);
 
 		// gay stuff (registry)
 		ModItemGroups.registerItemGroups();

@@ -7,7 +7,6 @@
     "map_book.CartographyRecipesSlot0Mixin",
     "map_book.CartographyRecipesSlot1Mixin",
     "map_book.MapStateMixin",
-    "transportation.ArmorMaterialsMixin",
     "transportation.VehiclesMoveThroughLeaves"
   ],
   "injectors": {
