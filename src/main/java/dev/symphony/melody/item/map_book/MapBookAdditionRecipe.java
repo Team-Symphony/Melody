@@ -77,11 +77,6 @@ public final class MapBookAdditionRecipe extends SpecialCraftingRecipe {
         return new AdditionResult(mapBook, maps);
     }
 
-    @Override
-    public boolean fits(int width, int height) {
-        return width * height >= 2;
-    }
-
     @Override @NotNull
     public RecipeSerializer<MapBookAdditionRecipe> getSerializer() {
         return ModRecipes.MAP_BOOK_ADDITION_SERIALIZER;

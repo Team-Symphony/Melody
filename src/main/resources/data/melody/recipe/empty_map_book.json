@@ -2,12 +2,8 @@
     "type": "minecraft:crafting_shapeless",
     "category": "misc",
     "ingredients": [
-        {
-            "item": "minecraft:book"
-        },
-        {
-            "item": "minecraft:map"
-        }
+            "minecraft:book",
+            "minecraft:map"
     ],
     "result": {
         "id": "melody:map_book",

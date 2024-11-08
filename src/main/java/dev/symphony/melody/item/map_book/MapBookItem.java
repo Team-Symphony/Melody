@@ -22,7 +22,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -33,7 +32,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
-public final class MapBookItem extends NetworkSyncedItem {
+public final class MapBookItem extends Item {
     public MapBookItem(Item.Settings settings) {
         super(settings);
     }
@@ -51,14 +50,14 @@ public final class MapBookItem extends NetworkSyncedItem {
                 }
             }
 
-            return ActionResult.success(context.getWorld().isClient);
+            return ActionResult.SUCCESS;
         } else {
             return super.useOnBlock(context);
         }
     }
 
     @Override @NotNull
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+    public ActionResult use(World world, PlayerEntity user, Hand hand) {
         if (world != null && !world.isClient()) {
             ServerPlayerEntity player = (ServerPlayerEntity)user;
             ItemStack item = user.getStackInHand(hand);

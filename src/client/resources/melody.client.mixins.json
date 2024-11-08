@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "client": [
     "map_book.CartographyTableScreenMixin",
+    "map_book.DrawContextAccessor",
     "map_book.HeldMapBookRenderingMixin",
     "map_book.MapPositionRequestMixin"
   ],

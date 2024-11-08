@@ -2,6 +2,7 @@ package dev.symphony.melody.map_book;
 
 import dev.symphony.melody.item.ModItems;
 import dev.symphony.melody.item.map_book.MapStateData;
+import dev.symphony.melody.mixin.client.map_book.DrawContextAccessor;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -128,7 +129,7 @@ public final class MapBookScreen extends Screen {
         float l = sprite.getMaxU();
         float m = sprite.getMaxV();
         Matrix4f matrix4f2 = context.getMatrices().peek().getPositionMatrix();
-        VertexConsumer vertexConsumer2 = context.getVertexConsumers().getBuffer(RenderLayer.getText(sprite.getAtlasId()));
+        VertexConsumer vertexConsumer2 = ((DrawContextAccessor)context).getVertexConsumers().getBuffer(RenderLayer.getText(sprite.getAtlasId()));
         vertexConsumer2.vertex(matrix4f2, -1.0F, 1.0F, -0.1F).color(255, 255, 255, 255).texture(g, h).light(15728880);
         vertexConsumer2.vertex(matrix4f2, 1.0F, 1.0F, -0.1F).color(255, 255, 255, 255).texture(l, h).light(15728880);
         vertexConsumer2.vertex(matrix4f2, 1.0F, -1.0F, -0.1F).color(255, 255, 255, 255).texture(l, m).light(15728880);
