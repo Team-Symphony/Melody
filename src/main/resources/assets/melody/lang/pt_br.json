@@ -1,0 +1,25 @@
+{
+  "symphony.feature_tracker": "Rastreador de Recursos",
+
+  "melody.midnightconfig.title": "Configurações do Melody",
+  "melody.midnightconfig.reloadWarning": "A maioria das opções requerem que o jogo seja reiniciado para serem aplicadas!",
+  "melody.midnightconfig.category.melody": "Melody",
+
+  "melody.midnightconfig.category.transportation": "Transporte",
+  "melody.midnightconfig.vehiclesMoveThroughLeaves": "Mobs montáveis podem atravessar folhas quando um jogador estiver montado",
+  "melody.midnightconfig.leafSpeedFactor": "Velocidade do mob montável quando entre folhas",
+  "melody.midnightconfig.netheriteHorseArmor": "Armadura de Netherita para Cavalo",
+  "melody.midnightconfig.netheriteHorseArmorDefense": "Pontos de defesa da Armadura de Netherita para Cavalo",
+
+  "melody.midnightconfig.category.exploration": "Exploração",
+  "melody.midnightconfig.mapBook": "Livro de mapas",
+
+  "itemgroup.melody.melody_item_group": "Melody",
+
+  "item.melody.map_book": "Livro de mapas",
+  "item.melody.map_book_empty": "Livro de mapas vazio",
+  "item.melody.map_book_new": "Novo Livro de mapas",
+  "item.melody.map_book_id": "Livro: %s",
+  "item.melody.map_book_maps": "Mapas: %s",
+  "item.melody.netherite_horse_armor": "Armadura de Netherita para Cavalo"
+}
