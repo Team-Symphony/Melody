@@ -2,8 +2,16 @@
 	"schemaVersion": 1,
 	"id": "melody",
 	"version": "${version}",
+
 	"name": "Melody",
 	"description": "This is an example description! Tell everyone what your mod is about!",
+	"contact": {
+		"homepage": "https://github.com/Team-Symphony/Melody",
+		"sources": "https://github.com/Team-Symphony/Melody",
+		"issues": "https://github.com/Team-Symphony/Melody/issues"
+	},
+	"icon": "assets/melody/icon.png",
+
 	"authors": [
 		"Team Symphony",
 		"Flatkat",
@@ -13,25 +21,18 @@
 		"Eleanor",
 		"blryface"
 	],
-	"contact": {
-		"homepage": "https://github.com/Team-Symphony/Melody",
-		"sources": "https://github.com/Team-Symphony/Melody",
-		"issues": "https://github.com/Team-Symphony/Melody/issues"
-	},
 
 	"custom": {
 		"modmenu": {
 			"links": {
 				"modmenu.discord": "https://discord.gg/hTTPbbnRGG",
 				"modmenu.github_releases": "https://github.com/Team-Symphony/Melody/releases",
-				"symphony.feature_tracker": "https://docs.google.com/spreadsheets/d/196sVDUJELCznO_RF7vib9-2uMkRaHFwVG9ogDHR1CBU/edit"
+				"symphony.feature_tracker": "https://github.com/orgs/Team-Symphony/projects/1/views/1"
 			}
 		}
 	},
 
-
 	"license": "MIT",
-	"icon": "assets/melody/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
@@ -53,8 +54,5 @@
 		"minecraft": "~1.21.1",
 		"java": ">=21",
 		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
 	}
 }
