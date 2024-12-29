@@ -13,17 +13,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.0.2-alpha+mc1.21.4] 2024-12-24
+
 ### Added
 
 #### General
 
 - TRANSLATION: Portuguese from Brazil (pt_br)
-
-### Deprecated
-
-##### General
-
-- MidnightLib will be replaced by a different config lib
 
 ## [0.0.1-alpha+mc1.21.3] - 2024-11-8
 
