@@ -1,14 +1,14 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "melody:item/map_book"
-  },
-  "overrides": [
-    {
-      "predicate": {
-        "melody:empty": 1
-      },
+  "model": {
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
       "model": "melody:item/map_book_empty"
-    }
-  ]
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "melody:item/map_book_filled"
+    },
+    "property": "melody:map_book/filled"
+  }
 }
