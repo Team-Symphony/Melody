@@ -3,13 +3,13 @@
 
   "text.config.melody.title": "Configurările pentru Melody",
 
-  "text.config.melody.section.transportation": "Transportare",
+  "text.config.melody.section.Transportation": "Transportare",
   "text.config.melody.option.vehiclesMoveThroughLeaves": "Animalele se pot deplasa prin frunze când sunt călărite",
   "text.config.melody.option.leafSpeedFactor": "Procentul de viteză al animalelor călărite în timp ce se află în frunze",
   "text.config.melody.option.netheriteHorseArmor": "Armură de cal din netherit",
   "text.config.melody.option.netheriteHorseArmorDefense": "Puncte de apărare ale armurei de cal din netherit",
 
-  "text.config.melody.section.exploration": "Explorare",
+  "text.config.melody.section.Exploration": "Explorare",
   "text.config.melody.option.mapBook": "Carte de hărți",
 
   "itemgroup.melody.melody_item_group": "Melody",

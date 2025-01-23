@@ -3,13 +3,13 @@
 
   "text.config.melody.title": "Configurações do Melody",
 
-  "text.config.melody.section.transportation": "Transporte",
+  "text.config.melody.section.Transportation": "Transporte",
   "text.config.melody.option.vehiclesMoveThroughLeaves": "Mobs montáveis podem atravessar folhas quando um jogador estiver montado",
   "text.config.melody.option.leafSpeedFactor": "Velocidade do mob montável quando entre folhas",
   "text.config.melody.option.netheriteHorseArmor": "Armadura de Netherita para Cavalo",
   "text.config.melody.option.netheriteHorseArmorDefense": "Pontos de defesa da Armadura de Netherita para Cavalo",
 
-  "text.config.melody.section.exploration": "Exploração",
+  "text.config.melody.section.Exploration": "Exploração",
   "text.config.melody.option.mapBook": "Livro de mapas",
 
   "itemgroup.melody.melody_item_group": "Melody",
