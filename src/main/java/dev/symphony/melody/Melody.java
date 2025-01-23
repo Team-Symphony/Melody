@@ -1,5 +1,6 @@
 package dev.symphony.melody;
 
+import dev.symphony.melody.config.MelodyConfig;
 import dev.symphony.melody.config.MelodyConfigCondition;
 import dev.symphony.melody.item.ModItemGroups;
 import dev.symphony.melody.item.ModItems;
@@ -17,8 +18,6 @@ import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import eu.midnightdust.lib.config.MidnightConfig;
-import dev.symphony.melody.config.MelodyConfig;
 
 public class Melody implements ModInitializer {
 	public static final String MOD_ID = "melody";
@@ -28,17 +27,18 @@ public class Melody implements ModInitializer {
 		return Identifier.of(MOD_ID, path);
 	}
 
+	public static final MelodyConfig CONFIG = MelodyConfig.createAndLoad();
+
+
 	@Override
 	public void onInitialize() {
-		// Config
-		MidnightConfig.init(MOD_ID, MelodyConfig.class);
+		MelodyConfigCondition.init(CONFIG);
 
-		MelodyConfigCondition.init();
 		ResourceConditionType<MelodyConfigCondition> conditionType = ResourceConditionType.create(Melody.id("config"), MelodyConfigCondition.CODEC);
 		ResourceConditions.register(conditionType);
 
 		// Set Netherite Horse Armor Defense value
-		ArmorMaterials.NETHERITE.defense().put(EquipmentType.BODY, MelodyConfig.netheriteHorseArmorDefense);
+		ArmorMaterials.NETHERITE.defense().put(EquipmentType.BODY, Melody.CONFIG.netheriteHorseArmorDefense());
 
 		// gay stuff (registry)
 		ModItemGroups.registerItemGroups();

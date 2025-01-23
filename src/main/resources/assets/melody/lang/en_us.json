@@ -1,18 +1,16 @@
 {
   "symphony.feature_tracker": "Feature Tracker",
 
-  "melody.midnightconfig.title": "Melody Config",
-  "melody.midnightconfig.reloadWarning": "Most config options will require a game restart to take affect!",
-  "melody.midnightconfig.category.melody": "Melody",
+  "text.config.melody.title": "Melody Config",
 
-  "melody.midnightconfig.category.transportation": "Transportation",
-  "melody.midnightconfig.vehiclesMoveThroughLeaves": "Rideable mobs can move through leaves when ridden",
-  "melody.midnightconfig.leafSpeedFactor": "Rideable mob speed percentage while inside leaves",
-  "melody.midnightconfig.netheriteHorseArmor": "Netherite Horse Armor",
-  "melody.midnightconfig.netheriteHorseArmorDefense": "Netherite Horse Armor defense points",
+  "text.config.melody.section.transportation": "Transportation",
+  "text.config.melody.option.vehiclesMoveThroughLeaves": "Rideable mobs can move through leaves when ridden",
+  "text.config.melody.option.leafSpeedFactor": "Rideable mob speed percentage while inside leaves",
+  "text.config.melody.option.netheriteHorseArmor": "Netherite Horse Armor",
+  "text.config.melody.option.netheriteHorseArmorDefense": "Netherite Horse Armor defense points",
 
-  "melody.midnightconfig.category.exploration": "Exploration",
-  "melody.midnightconfig.mapBook": "Map Book",
+  "text.config.melody.section.exploration": "Exploration",
+  "text.config.melody.option.mapBook": "Map Book",
 
   "itemgroup.melody.melody_item_group": "Melody",
 

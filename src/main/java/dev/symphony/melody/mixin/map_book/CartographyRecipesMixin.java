@@ -1,6 +1,6 @@
 package dev.symphony.melody.mixin.map_book;
 
-import dev.symphony.melody.config.MelodyConfig;
+import dev.symphony.melody.Melody;
 import dev.symphony.melody.item.ModItems;
 import dev.symphony.melody.item.map_book.MapBookItem;
 import net.minecraft.component.DataComponentTypes;
@@ -34,7 +34,7 @@ public abstract class CartographyRecipesMixin extends ScreenHandler {
 
     @Inject(at = @At("HEAD"), method = "method_17382", cancellable = true)
     private void updateResult(ItemStack map, ItemStack item, ItemStack oldResult, World world, BlockPos pos, CallbackInfo ci) {
-        if (!MelodyConfig.mapBook) return;
+        if (!Melody.CONFIG.mapBook()) return;
 
         if (map.isOf(Items.BOOK) && item.isOf(Items.MAP)) {
             resultInventory.setStack(2, new ItemStack(ModItems.MAP_BOOK, 1));
