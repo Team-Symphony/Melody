@@ -26,7 +26,7 @@ public class VehiclesMoveThroughLeaves extends Block {
     // Allow the vehicle to both move through and walk on top of leaves
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        if (Melody.CONFIG.vehiclesMoveThroughLeaves() && context instanceof EntityShapeContext entityContext) {
+        if (Melody.CONFIG.transSaddledCat.vehiclesMoveThroughLeaves() && context instanceof EntityShapeContext entityContext) {
             // If completely above the leaf block, treat as solid to allow standing on
             if (context.isAbove(VoxelShapes.fullCube(), pos, true) && !context.isDescending()) return COLLISION_SHAPE;
                 // If not, treat as empty
@@ -38,7 +38,7 @@ public class VehiclesMoveThroughLeaves extends Block {
     // Prevent the camera from getting stuck on leaves
     @Override
     public VoxelShape getCameraCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        if (Melody.CONFIG.vehiclesMoveThroughLeaves() && context instanceof EntityShapeContext entityContext) {
+        if (Melody.CONFIG.transSaddledCat.vehiclesMoveThroughLeaves() && context instanceof EntityShapeContext entityContext) {
             // If camera-owning entity (player) is controlling a vehicle, treat as empty
             if (entityContext.getEntity() != null && entityContext.getEntity().getControllingVehicle() != null) return VoxelShapes.empty();
         }
@@ -48,7 +48,7 @@ public class VehiclesMoveThroughLeaves extends Block {
     // Slow down the vehicle when moving though leaves
     @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-        if (Melody.CONFIG.vehiclesMoveThroughLeaves() && entity.hasControllingPassenger())
-            entity.slowMovement(state, new Vec3d(Melody.CONFIG.leafSpeedFactor(), 1, Melody.CONFIG.leafSpeedFactor()));
+        if (Melody.CONFIG.transSaddledCat.vehiclesMoveThroughLeaves() && entity.hasControllingPassenger())
+            entity.slowMovement(state, new Vec3d(Melody.CONFIG.transSaddledCat.throughLeavesCat.leafSpeedFactor(), 1, Melody.CONFIG.transSaddledCat.throughLeavesCat.leafSpeedFactor()));
     }
 }

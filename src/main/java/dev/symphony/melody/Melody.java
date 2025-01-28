@@ -38,7 +38,7 @@ public class Melody implements ModInitializer {
 		ResourceConditions.register(conditionType);
 
 		// Set Netherite Horse Armor Defense value
-		ArmorMaterials.NETHERITE.defense().put(EquipmentType.BODY, Melody.CONFIG.netheriteHorseArmorDefense());
+		ArmorMaterials.NETHERITE.defense().put(EquipmentType.BODY, Melody.CONFIG.transSaddledCat.nethHorseArmorCat.netheriteHorseArmorDefense());
 
 		// gay stuff (registry)
 		ModItemGroups.registerItemGroups();

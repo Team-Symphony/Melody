@@ -3,11 +3,14 @@
 
   "text.config.melody.title": "Melody Config",
 
-  "text.config.melody.section.Transportation": "Transportation",
-  "text.config.melody.option.vehiclesMoveThroughLeaves": "Rideable mobs can move through leaves when ridden",
-  "text.config.melody.option.leafSpeedFactor": "Rideable mob speed percentage while inside leaves",
-  "text.config.melody.option.netheriteHorseArmor": "Netherite Horse Armor",
-  "text.config.melody.option.netheriteHorseArmorDefense": "Netherite Horse Armor defense points",
+  "text.config.melody.section.Trans": "Transportation",
+  "text.config.melody.category.transSaddledCat": "Saddled Mobs",
+    "text.config.melody.option.transSaddledCat.vehiclesMoveThroughLeaves": "Rideable mobs can move through leaves when ridden",
+    "text.config.melody.category.transSaddledCat.throughLeavesCat": "More options",
+      "text.config.melody.option.transSaddledCat.throughLeavesCat.leafSpeedFactor": "Rideable mob speed percentage while inside leaves",
+    "text.config.melody.option.transSaddledCat.netheriteHorseArmor": "Netherite Horse Armor",
+    "text.config.melody.category.transSaddledCat.nethHorseArmorCat": "More options",
+      "text.config.melody.option.transSaddledCat.nethHorseArmorCat.netheriteHorseArmorDefense": "Netherite Horse Armor defense points",
 
   "text.config.melody.section.Exploration": "Exploration",
   "text.config.melody.option.mapBook": "Map Book",
