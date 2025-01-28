@@ -7,6 +7,7 @@ import dev.symphony.melody.Melody;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
 import net.minecraft.registry.RegistryOps;
+import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.annotation.ElementType;
@@ -20,48 +21,40 @@ import java.util.HashMap;
 // FEATURE: Configurable Data-Driven Resources (ported over from Harmony)
 // AUTHORS: Flatkat, WheatFlour
 public record MelodyConfigCondition(String config_name) implements ResourceCondition {
-
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.FIELD})
     public @interface ResourceConfigName {
         String config_name();
     }
 
-    public static void init() {
-        Field[] fields = MelodyConfig.class.getDeclaredFields();
-        HashMap<String, Boolean> map = new HashMap<>();
+    public static void init(dev.symphony.melody.config.MelodyConfig config) {
+        Field[] fields = MelodyConfigModel.class.getDeclaredFields();
         for (Field field : fields) {
-            if (java.lang.reflect.Modifier.isStatic(field.getModifiers())) {
-                if (field.isAnnotationPresent(ResourceConfigName.class)) {
-
-                    ResourceConfigName configName = field.getAnnotation(ResourceConfigName.class);
-
-                    try {
-                        map.put(configName.config_name(), (Boolean) field.get(null));
-                    } catch (IllegalAccessException e) {
-                        Melody.LOGGER.error("Failed to get resource config condition value for field {}", field.getName());
-                        Melody.LOGGER.error(Arrays.toString(e.getStackTrace()));
-                    }
+            if (field.isAnnotationPresent(ResourceConfigName.class)) {
+                ResourceConfigName configName = field.getAnnotation(ResourceConfigName.class);
+                try {
+                    // Because of owo lib config model, we use reflection to call the method of the same name as the field from model
+                    // as owo lib doesn't copy annotations to the generated class
+                    resourceMap.put(configName.config_name(), (Boolean) config.getClass().getDeclaredMethod(field.getName()).invoke(config));
+                } catch (Exception e) {
+                    Melody.LOGGER.error("Failed to get resource config condition value for field {}", field.getName());
+                    Melody.LOGGER.error(Arrays.toString(e.getStackTrace()));
                 }
             }
         }
-        resourceMap = map;
     }
 
-    public static HashMap<String, Boolean> resourceMap = null;
+    public static HashMap<String, Boolean> resourceMap = new HashMap<>();
 
     public static final MapCodec<MelodyConfigCondition> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.STRING.fieldOf("config_name").forGetter(condition -> condition.config_name)
     ).apply(instance, MelodyConfigCondition::new));
 
 
-
-
     @Override
     public ResourceConditionType<?> getType() {
-        return ResourceConditionType.create(Melody.id("config"), CODEC);
+        return ResourceConditionType.create(Identifier.of(Melody.MOD_ID, "config"), CODEC);
     }
-
     @Override
     public boolean test(@Nullable RegistryOps.RegistryInfoGetter registryInfo) {
         return resourceMap.getOrDefault(config_name, false);

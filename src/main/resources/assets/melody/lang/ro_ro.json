@@ -1,18 +1,16 @@
 {
   "symphony.feature_tracker": "Lista Modificărilor",
 
-  "melody.midnightconfig.title": "Configurările pentru Melody",
-  "melody.midnightconfig.reloadWarning": "Unele opțiuni vor necesita o repornire a jocului pentru a avea efect!",
-  "melody.midnightconfig.category.melody": "Melody",
+  "text.config.melody.title": "Configurările pentru Melody",
 
-  "melody.midnightconfig.category.transportation": "Transportare",
-  "melody.midnightconfig.vehiclesMoveThroughLeaves": "Animalele se pot deplasa prin frunze când sunt călărite",
-  "melody.midnightconfig.leafSpeedFactor": "Procentul de viteză al animalelor călărite în timp ce se află în frunze",
-  "melody.midnightconfig.netheriteHorseArmor": "Armură de cal din netherit",
-  "melody.midnightconfig.netheriteHorseArmorDefense": "Puncte de apărare ale armurei de cal din netherit",
+  "text.config.melody.section.Transportation": "Transportare",
+  "text.config.melody.option.vehiclesMoveThroughLeaves": "Animalele se pot deplasa prin frunze când sunt călărite",
+  "text.config.melody.option.leafSpeedFactor": "Procentul de viteză al animalelor călărite în timp ce se află în frunze",
+  "text.config.melody.option.netheriteHorseArmor": "Armură de cal din netherit",
+  "text.config.melody.option.netheriteHorseArmorDefense": "Puncte de apărare ale armurei de cal din netherit",
 
-  "melody.midnightconfig.category.exploration": "Explorare",
-  "melody.midnightconfig.mapBook": "Carte de hărți",
+  "text.config.melody.section.Exploration": "Explorare",
+  "text.config.melody.option.mapBook": "Carte de hărți",
 
   "itemgroup.melody.melody_item_group": "Melody",
 
