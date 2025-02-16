@@ -3,6 +3,8 @@
   "package": "dev.symphony.melody.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "creeper.CreeperEntityMixin",
+    "creeper.CreeperIgniteGoalMixin",
     "map_book.CartographyRecipesMixin",
     "map_book.CartographyRecipesSlot0Mixin",
     "map_book.CartographyRecipesSlot1Mixin",
