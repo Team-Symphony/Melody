@@ -1,5 +1,6 @@
 package dev.symphony.melody.explosion;
 
+import dev.symphony.melody.config.MelodyConfig;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -9,6 +10,7 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.explosion.Explosion;
@@ -34,7 +36,7 @@ public class CreeperExplosionBehavior extends ExplosionBehavior {
     public Optional<Float> getBlastResistance(Explosion explosion, BlockView world, BlockPos pos, BlockState blockState, FluidState fluidState) {
         Optional<Float> bedrockBlastResistance = Optional.of(Blocks.BEDROCK.getBlastResistance());
 
-        if (isContainer(blockState, pos))
+        if (MelodyConfig.creepersPreserveContainers && isContainer(blockState, pos))
             return bedrockBlastResistance;
 
         return this.immuneBlocks.<Optional<Float>>map(registryEntries ->
@@ -56,7 +58,7 @@ public class CreeperExplosionBehavior extends ExplosionBehavior {
         double d = Math.sqrt(entity.squaredDistanceTo(pos)) / power;
         double exposure = (1.0 - d) * (double) Explosion.getExposure(pos, entity);
 
-        return (float) ((exposure * exposure + exposure) * 3.5 * power + 1.0);
+        return (float) ((MathHelper.square(exposure) + exposure) * 3.5 * power + 1.0);
     }
 
 }

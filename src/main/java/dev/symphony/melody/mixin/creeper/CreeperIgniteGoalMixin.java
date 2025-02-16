@@ -2,9 +2,11 @@ package dev.symphony.melody.mixin.creeper;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import dev.symphony.melody.config.MelodyConfig;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.CreeperIgniteGoal;
 import net.minecraft.entity.mob.CreeperEntity;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
@@ -18,19 +20,20 @@ public class CreeperIgniteGoalMixin {
 
     @Unique
     private static final double TOLERANCE = 0.025;
-    @Unique
-    private static final double CANCEL_DISTANCE = 4.0;
 
     @Shadow @Final private CreeperEntity creeper;
 
     @ModifyReturnValue(method = "canStart", at = @At(value = "RETURN"))
     private boolean canStart$melody(boolean original) {
+        if (!MelodyConfig.accessibleCreepers || !MelodyConfig.creeperIgnitionRequiresSight)
+            return original;
+
         return original && this.isTargetLookingAtCreeper();
     }
 
     @ModifyExpressionValue(method = "tick", at = @At(value = "CONSTANT", args = "doubleValue=49.0"))
     private double modifySquaredCancelDistance(double original) {
-        return CANCEL_DISTANCE * CANCEL_DISTANCE;
+        return MelodyConfig.accessibleCreepers ? MathHelper.square(MelodyConfig.creeperDefuseDistance) : original;
     }
 
     @Unique

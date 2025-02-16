@@ -3,6 +3,7 @@ package dev.symphony.melody.mixin.creeper;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import dev.symphony.melody.config.MelodyConfig;
 import dev.symphony.melody.explosion.CreeperExplosionBehavior;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -27,20 +28,24 @@ public class CreeperEntityMixin {
 
     @WrapOperation(method = "explode", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;createExplosion(Lnet/minecraft/entity/Entity;DDDFLnet/minecraft/world/World$ExplosionSourceType;)Lnet/minecraft/world/explosion/Explosion;"))
     private Explosion createExplosionWithCustomBehavior(World instance, Entity entity, double x, double y, double z, float power, World.ExplosionSourceType explosionSourceType, Operation<Explosion> original) {
+        if (!MelodyConfig.accessibleCreepers)
+            return original.call(instance, entity, x, y, z, power, explosionSourceType);
+
         DamageSource source = Explosion.createDamageSource(instance, entity);
-        ExplosionBehavior explosionBehavior = new CreeperExplosionBehavior(1.5F);
+        ExplosionBehavior explosionBehavior = new CreeperExplosionBehavior(MelodyConfig.creeperEntityDamageMultiplier);
 
         return instance.createExplosion(entity, source, explosionBehavior, x, y, z, power, false, explosionSourceType);
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void modifyExplosionRadius(EntityType<CreeperEntity> entityType, World world, CallbackInfo ci) {
-        this.explosionRadius = 2;
+        if (MelodyConfig.accessibleCreepers)
+            this.explosionRadius = MelodyConfig.creeperExplosionPower;
     }
 
     @WrapWithCondition(method = "setTarget", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/HostileEntity;setTarget(Lnet/minecraft/entity/LivingEntity;)V"))
     private boolean canSetTarget(HostileEntity instance, LivingEntity entity) {
-        return entity instanceof PlayerEntity;
+        return !MelodyConfig.accessibleCreepers || entity instanceof PlayerEntity;
     }
 
 }

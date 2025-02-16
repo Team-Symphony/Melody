@@ -5,6 +5,14 @@
   "melody.midnightconfig.reloadWarning": "Most config options will require a game restart to take affect!",
   "melody.midnightconfig.category.melody": "Melody",
 
+  "melody.midnightconfig.category.accessibility": "Accessibility",
+  "melody.midnightconfig.accessibleCreepers": "Master toggle for all creeper-related accessibility features",
+  "melody.midnightconfig.creeperIgnitionRequiresSight": "Creepers will only ignite when a player is looking at them",
+  "melody.midnightconfig.creepersPreserveContainers": "Creepers will not be able to destroy blocks with inventories",
+  "melody.midnightconfig.creeperDefuseDistance": "The distance away from the creeper a player needs to be for it to defuse",
+  "melody.midnightconfig.creeperExplosionPower": "The radius of the creeper explosion",
+  "melody.midnightconfig.creeperEntityDamageMultiplier": "How much entity explosion damage should scale based on the explosion power",
+
   "melody.midnightconfig.category.transportation": "Transportation",
   "melody.midnightconfig.vehiclesMoveThroughLeaves": "Rideable mobs can move through leaves when ridden",
   "melody.midnightconfig.leafSpeedFactor": "Rideable mob speed percentage while inside leaves",

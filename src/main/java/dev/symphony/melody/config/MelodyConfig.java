@@ -5,6 +5,14 @@ import eu.midnightdust.lib.config.MidnightConfig;
 public class MelodyConfig extends MidnightConfig {
     @Comment(category = "melody", centered = true) public static Comment reloadWarning;
 
+    public static final String ACCESSIBILITY = "accessibility";
+    @Entry(category = ACCESSIBILITY) public static boolean accessibleCreepers = true;
+    @Entry(category = ACCESSIBILITY) public static boolean creeperIgnitionRequiresSight = true;
+    @Entry(category = ACCESSIBILITY) public static boolean creepersPreserveContainers = true;
+    @Entry(category = ACCESSIBILITY, isSlider = true, min = 0.0, max = 10.0) public static double creeperDefuseDistance = 4.0;
+    @Entry(category = ACCESSIBILITY, isSlider = true, min = 0, max = 10) public static int creeperExplosionPower = 2;
+    @Entry(category = ACCESSIBILITY, isSlider = true, min = 1.0F, max = 5.0F) public static float creeperEntityDamageMultiplier = 1.5F;
+
     // Transportation
     public static final String TRANS = "transportation";
     @Entry(category = TRANS) public static boolean vehiclesMoveThroughLeaves = true;
